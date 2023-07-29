@@ -7,10 +7,9 @@ import {
 import Hero from "./components/hero";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
-import BlogCards from "./components/blogCards";
-import MissionSection from "./components/missionSection";
 import Milestones from "./components/timeline";
 import Contact from "./components/contact";
+import Blog from './components/Blog';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -18,11 +17,11 @@ export const App = () => (
       <Navbar />
       <Routes>
         <Route path="/contact" element={<Contact />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/" element={
           <>
             <Hero />
             <Milestones />
-            <BlogCards />
           </>
         }/>
       </Routes>
