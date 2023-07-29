@@ -6,7 +6,7 @@ import {
   HStack,
   VStack,
   Stack,
-  Link,
+  Link as ChakraLink,
   Text,
   Icon,
   Tag,
@@ -14,12 +14,13 @@ import {
   useColorModeValue
 } from '@chakra-ui/react';
 import { GoChevronRight } from 'react-icons/go';
+import { Link } from 'react-router-dom';
 
 interface Article {
   id: number;
   attributes: {
     title: string;
-    content: string;
+    description: string; // changed from content to description
     published: string;
     tags: string;
   };
@@ -67,7 +68,7 @@ const Blog = () => {
               ))}
             </HStack>
             <Box textAlign="left">
-              <Link
+              <ChakraLink
                 fontSize="xl"
                 lineHeight={1.2}
                 fontWeight="bold"
@@ -75,9 +76,9 @@ const Blog = () => {
                 _hover={{ color: 'blue.400', textDecoration: 'underline' }}
               >
                 {article.attributes.title}
-              </Link>
+              </ChakraLink>
               <Text fontSize="md" color="gray.500" noOfLines={2} lineHeight="normal">
-                {article.attributes.content}
+                {article.attributes.description} 
               </Text>
             </Box>
             <Box>
@@ -89,6 +90,7 @@ const Blog = () => {
                 </Box>
                 <HStack
                   as={Link}
+                  to={`/blog/${article.id}`}
                   spacing={1}
                   p={1}
                   alignItems="center"
