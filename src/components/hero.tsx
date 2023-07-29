@@ -67,23 +67,19 @@ const IntroSection = () => {
           <Box as="h2" fontSize="2xl" fontWeight="400" textAlign="left">
             My name is{' '}
             <Box as="strong" fontWeight="600">
-              Ahmad
+              Tadeáš
             </Box>{' '}
-            and I&apos;m a{' '}
+            and I&apos;m {' '}
             <Box as="span" whiteSpace="nowrap">
-              Full Stack Developer and
+              Data Engineer by day and
             </Box>{' '}
             <Box as="span" whiteSpace="nowrap">
-              an open source lover&nbsp;
-            </Box>
-            from{' '}
-            <Box as="span" whiteSpace="nowrap">
-              Pakistan 🇵🇰
+              web developer by night.&nbsp;
             </Box>
           </Box>
           <Box as="h2" fontSize="2xl" fontWeight="400" mt={5} textAlign="left">
-            This is my digital garden, where I write about the things I&apos;m working on and share
-            what I&apos;ve learned. 😊
+            This website serves as my blog, where I write about the things I&apos;m working on
+            as well as a portfolio where you can see portraits made by me 🇨🇿
           </Box>
         </MotionFlex>
       </Flex>

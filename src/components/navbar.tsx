@@ -26,10 +26,13 @@ import { BsBook } from 'react-icons/bs';
 import { FiSun } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ColorModeSwitcher } from './ColorModeSwitcher'; // Import the ColorModeSwitcher component
+import { Link as RouterLink } from 'react-router-dom';
 
 const navLinks = [
-  { name: 'Contact', path: 'contact' },
-  { name: 'Blog', path: 'blog' },
+  { name: 'Home', path: '/' },
+  { name: 'Contact', path: '/contact' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'Photography', path: '/about'}
 ];
 
 const dropdownLinks = [
@@ -158,7 +161,8 @@ const NavLink = ({ name, path, onClose }: NavLinkProps) => {
 
   return (
     <Link
-      href={path}
+      as={RouterLink}
+      to={path}
       px={3}
       py={1}
       lineHeight="inherit"
@@ -175,6 +179,7 @@ const NavLink = ({ name, path, onClose }: NavLinkProps) => {
   );
 };
 
+
 // Dropdown MenuLink Component
 interface MenuLinkProps {
   name: string;
@@ -185,7 +190,10 @@ interface MenuLinkProps {
 
 const MenuLink = ({ name, path, icon, onClose }: MenuLinkProps) => {
   return (
-    <Link href={path} onClick={() => onClose()}>
+    <Link 
+      href={path} 
+      isExternal 
+      onClick={() => onClose()}>
       <MenuItem _hover={{ color: 'blue.400', bg: useColorModeValue('gray.200', 'gray.700') }}>
         <HStack>
           <Icon as={icon} size={18} color="blue.400" />
@@ -195,3 +203,4 @@ const MenuLink = ({ name, path, icon, onClose }: MenuLinkProps) => {
     </Link>
   );
 };
+
