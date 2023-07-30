@@ -13,6 +13,7 @@ import Blog from './components/Blog';
 import SinglePost from './components/SinglePost'; 
 import Stats from './components/stats';
 import TechStack from "./components/techStack";
+import Photography from './components/Photography';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -21,7 +22,8 @@ export const App = () => (
       <Routes>
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<SinglePost />} /> {/* add this line */}
+        <Route path="/blog/:id" element={<SinglePost />} />
+        <Route path="/photography" element={<Photography />} />
         <Route path="/" element={
           <>
             <Hero />

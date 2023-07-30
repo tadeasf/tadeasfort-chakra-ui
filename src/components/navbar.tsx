@@ -32,7 +32,7 @@ const navLinks = [
   { name: 'Home', path: '/' },
   { name: 'Contact', path: '/contact' },
   { name: 'Blog', path: '/blog' },
-  { name: 'Photography', path: '/about'}
+  { name: 'Photography', path: '/photography' },
 ];
 
 const dropdownLinks = [
