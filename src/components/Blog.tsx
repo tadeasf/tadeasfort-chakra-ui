@@ -10,7 +10,6 @@ import {
   Text,
   Icon,
   Tag,
-  Avatar,
   useColorModeValue
 } from '@chakra-ui/react';
 import { GoChevronRight } from 'react-icons/go';

@@ -13,7 +13,7 @@ interface ImageFormat {
   url: string;
 }
 
-interface Image {
+interface Photo {
   id: number;
   attributes: {
     name: string;
@@ -34,7 +34,7 @@ interface Gallery {
     description: string;
     publish: string;
     gallery: {
-      data: Image[];
+      data: Photo[];
     };
   };
 }

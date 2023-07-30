@@ -14,6 +14,7 @@ import SinglePost from './components/SinglePost';
 import Stats from './components/stats';
 import TechStack from "./components/techStack";
 import Photography from './components/Photography';
+import SingleGallery from './components/SingleGallery';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -24,6 +25,7 @@ export const App = () => (
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<SinglePost />} />
         <Route path="/photography" element={<Photography />} />
+        <Route path="/gallery/:id" element={<SingleGallery/>} />
         <Route path="/" element={
           <>
             <Hero />

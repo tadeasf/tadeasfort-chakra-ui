@@ -2,7 +2,6 @@
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
   Button,
   Text,
@@ -23,7 +22,6 @@ import { AiOutlineClose, AiTwotoneThunderbolt } from 'react-icons/ai';
 import { BiChevronDown } from 'react-icons/bi';
 import { MdTimeline } from 'react-icons/md';
 import { BsBook } from 'react-icons/bs';
-import { FiSun } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ColorModeSwitcher } from './ColorModeSwitcher'; // Import the ColorModeSwitcher component
 import { Link as RouterLink } from 'react-router-dom';
