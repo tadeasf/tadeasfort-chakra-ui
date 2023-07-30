@@ -30,9 +30,10 @@ const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:1337/api/articles') // replace with your Strapi URL
+    fetch('https://tadeasfort.eu/strapi/api/articles') // replace with your Strapi URL
       .then(response => response.json())
-      .then(data => setArticles(data.data));
+      .then(data => setArticles(data.data))
+      .catch(error => console.error('Error:', error));
   }, []);
 
   return (

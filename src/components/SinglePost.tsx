@@ -49,7 +49,7 @@ const SinglePost = () => {
   const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:1337/api/articles/${id}?populate=*`) // replace with your Strapi URL
+    fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`) // replace with your Strapi URL
       .then(response => response.json())
       .then(data => setArticle(data.data));
   }, [id]);
@@ -68,7 +68,7 @@ const SinglePost = () => {
           <ChakraImage
             boxSize="100%"
             objectFit="cover"
-            src={`http://localhost:1337${article.attributes.hero.data.attributes.formats.large.url}`}
+            src={`https://tadeasfort.eu/strapi${article.attributes.hero.data.attributes.formats.large.url}`}
             alt={article.attributes.title}
             fallbackSrc="https://via.placeholder.com/150"
           />
@@ -127,7 +127,7 @@ const SinglePost = () => {
             }}
           >
             {article.attributes.gallery && article.attributes.gallery.data.map((item, index) => {
-              const imageUrl = `http://localhost:1337${item.attributes.formats.large.url}`;
+              const imageUrl = `https://tadeasfort.eu/strapi${item.attributes.formats.large.url}`;
               return (
                 <Item
                   key={index}
