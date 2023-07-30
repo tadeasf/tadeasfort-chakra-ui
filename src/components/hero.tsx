@@ -74,12 +74,12 @@ const IntroSection = () => {
               Data Engineer by day and
             </Box>{' '}
             <Box as="span" whiteSpace="nowrap">
-              web developer by night.&nbsp;
+              full-stack web developer by night.&nbsp;
             </Box>
           </Box>
           <Box as="h2" fontSize="2xl" fontWeight="400" mt={5} textAlign="left">
-            This website serves as my blog, where I write about the things I&apos;m working on
-            as well as a portfolio where you can see portraits made by me 🇨🇿
+            This website serves as my blog, showcase of my coding skills and a place
+            to display my photography portfolio. 🇨🇿
           </Box>
         </MotionFlex>
       </Flex>

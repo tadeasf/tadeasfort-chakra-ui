@@ -10,7 +10,9 @@ import Footer from "./components/footer";
 import Milestones from "./components/timeline";
 import Contact from "./components/contact";
 import Blog from './components/Blog';
-import SinglePost from './components/SinglePost'; // import the SinglePost component
+import SinglePost from './components/SinglePost'; 
+import Stats from './components/stats';
+import TechStack from "./components/techStack";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -23,6 +25,8 @@ export const App = () => (
         <Route path="/" element={
           <>
             <Hero />
+            <TechStack />
+            <Stats />
             <Milestones />
           </>
         }/>

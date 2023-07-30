@@ -14,22 +14,36 @@ import {
 const milestones = [
   {
     id: 1,
-    date: 'MARCH 30, 2022',
-    title: 'Chakra Hackathon',
-    description: `Winner of first ever ChakraUI Hackathon. On sait depuis longtemps que travailler avec du texte lisible et contenant du sens.`
+    date: 'October 30, 2022',
+    title: 'First comercial React Web App',
+    description: `I've designed my first comercial React Web App for a client - Dorian Film.`
   },
   {
     id: 2,
-    date: 'July 30, 2021',
-    title: 'Open Source, first contribution',
-    description: `Fixing a typo, to fix a bug, contributing to Open Source and collaborating to improve technology for everyone, Ahmad's world changed again!.`
+    date: 'February 22, 2021',
+    title: 'Stared working for a startup',
+    description: `I've started working for a startup called Daytrip, where he is responsible for designing ETL pipelines and data dashboards for internal as well as external needs of the company.`
   },
   {
     id: 3,
-    date: 'July 30, 2018',
+    date: 'Aug 20, 2020',
     title: 'Freelancing, started working for myself',
     description:
-      'Ahmad starts his own business consulting for companies as a fullstack developer. Clients include UK Government departments, UK banks, global fintechs and startups.'
+    `I've starts his own business, first area of expertise being designig optical networks.`
+  },
+  {
+    id: 4,
+    date: '2020',
+    title: 'Started working on Masters Degree',
+    description:
+    `I've started my Masters Degree in New Media at Charles University.`
+  },
+  {
+    id: 5,
+    date: '2018',
+    title: 'Started a photography business',
+    description:
+    `I've worked with headhunters, providing corporate headshots for their clients.`
   }
 ];
 

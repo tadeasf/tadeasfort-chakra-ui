@@ -51,6 +51,17 @@ const dropdownLinks = [
     path: 'https://dorianfilm.cz',
     icon: AiTwotoneThunderbolt
   },
+  {
+    name: 'Dev Portfolio',
+    path: 'https://symphonious-croquembouche-40e5ff.netlify.app',
+    icon: AiTwotoneThunderbolt
+  },
+  {
+    name: 'Personal Blog',
+    path: 'https://tadeasfort.cz',
+    icon: AiTwotoneThunderbolt
+  },
+
 ];
 
 export default function Navbar() {
