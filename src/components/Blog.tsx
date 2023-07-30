@@ -69,6 +69,8 @@ const Blog = () => {
             </HStack>
             <Box textAlign="left">
               <ChakraLink
+                as={Link}
+                to={`/blog/${article.id}`}
                 fontSize="xl"
                 lineHeight={1.2}
                 fontWeight="bold"
