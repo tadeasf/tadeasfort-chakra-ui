@@ -68,7 +68,11 @@ const SinglePost = () => {
       const id = slug.substring(slug.lastIndexOf("-") + 1);
       fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`)
         .then((response) => response.json())
-        .then((data) => setArticle(data));
+        .then((data) => setArticle(data.data.attributes))
+        .catch((error) => {
+          console.error("Error fetching article:", error);
+          // Optionally, set the article state to an error message or some other value indicating an error
+        });
     }
   }, [slug]);
 
