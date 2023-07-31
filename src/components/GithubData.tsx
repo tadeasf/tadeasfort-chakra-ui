@@ -188,7 +188,7 @@ const GithubData = () => {
           <Stat>
             <StatLabel fontSize="lg">Last Commit Date</StatLabel>
             <StatNumber fontSize="2xl">
-              <Text color="blue">
+              <Text>
                 {format(parseISO(repo.dateUpdated), "HH")}
                 <Text as="span" animation={`${blink} 1s infinite`}>
                   :
