@@ -9,7 +9,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa'
 import { ReactNode } from 'react'
 
 const SocialButton = ({
@@ -58,13 +58,13 @@ export default function SmallWithSocial() {
         align={{ base: 'center', md: 'center' }}>
         <Text>© 2023 Tadeáš Fořt. All rights reserved</Text>
         <Stack direction={'row'} spacing={6}>
-          <SocialButton label={'Twitter'} href={'#'}>
+          <SocialButton label={'Twitter'} href={'https://twitter.com/FortTadeas'}>
             <FaTwitter />
           </SocialButton>
-          <SocialButton label={'YouTube'} href={'#'}>
-            <FaYoutube />
+          <SocialButton label={'GitHub'} href={'https://github.com/tadeasf'}>
+            <FaGithub />
           </SocialButton>
-          <SocialButton label={'Instagram'} href={'#'}>
+          <SocialButton label={'Instagram'} href={'https://www.instagram.com/whostoletedsusername/'}>
             <FaInstagram />
           </SocialButton>
         </Stack>

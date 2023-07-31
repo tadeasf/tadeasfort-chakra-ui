@@ -41,7 +41,7 @@ const dropdownLinks = [
   },
   {
     name: 'CV',
-    path: 'https://www.linkedin.com/in/tadeasfiala/',
+    path: 'https://www.linkedin.com/in/tade%C3%A1%C5%A1-fo%C5%99t-317ab1124/',
     icon: BsBook
   },
   {
@@ -59,7 +59,11 @@ const dropdownLinks = [
     path: 'https://tadeasfort.cz',
     icon: AiTwotoneThunderbolt
   },
-
+  {
+    name: 'Photography Portfolio',
+    path: 'https://fortfoti.cz',
+    icon: AiTwotoneThunderbolt
+  }
 ];
 
 export default function Navbar() {
