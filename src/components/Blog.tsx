@@ -99,7 +99,10 @@ const Blog = () => {
               <ChakraLink
                 as={Link}
                 to={`/blog/${article.attributes.title
-                  .replace(/\s+/g, "-")
+                  .split(" ")
+                  .slice(0, 4)
+                  .join("-")
+                  .replace(/\\s+/g, "-")
                   .toLowerCase()}`}
                 fontSize="xl"
                 lineHeight={1.2}

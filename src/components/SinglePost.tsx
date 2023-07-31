@@ -65,12 +65,7 @@ const SinglePost = () => {
 
   useEffect(() => {
     if (slug) {
-      fetch(
-        `https://tadeasfort.eu/strapi/api/articles?title=${slug.replace(
-          /-/g,
-          " "
-        )}`
-      )
+      fetch("https://tadeasfort.eu/strapi/api/articles")
         .then((response) => response.json())
         .then((data) => setArticle(data.data[0]));
     }
