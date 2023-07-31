@@ -1,4 +1,6 @@
-'use client'
+/** @format */
+
+"use client";
 
 import {
   Box,
@@ -8,67 +10,84 @@ import {
   Text,
   useColorModeValue,
   VisuallyHidden,
-} from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa'
-import { ReactNode } from 'react'
+} from "@chakra-ui/react";
+import { FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
+import { ReactNode } from "react";
+import ReactGA from "react-ga";
 
 const SocialButton = ({
   children,
   label,
   href,
 }: {
-  children: ReactNode
-  label: string
-  href: string
+  children: ReactNode;
+  label: string;
+  href: string;
 }) => {
   return (
     <chakra.button
-      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-      rounded={'full'}
+      bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+      rounded={"full"}
       w={8}
       h={8}
-      cursor={'pointer'}
-      as={'a'}
+      cursor={"pointer"}
+      as={"a"}
       href={href}
-      display={'inline-flex'}
-      alignItems={'center'}
-      justifyContent={'center'}
-      transition={'background 0.3s ease'}
+      display={"inline-flex"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      transition={"background 0.3s ease"}
       _hover={{
-        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-      }}>
+        bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
+      }}
+      onClick={() => {
+        ReactGA.event({
+          category: "Social",
+          action: "Click",
+          label: label,
+        });
+      }}
+    >
       <VisuallyHidden>{label}</VisuallyHidden>
       {children}
     </chakra.button>
-  )
-}
+  );
+};
 
 export default function SmallWithSocial() {
   return (
     <Box
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}>
+      bg={useColorModeValue("gray.50", "gray.900")}
+      color={useColorModeValue("gray.700", "gray.200")}
+    >
       <Container
         as={Stack}
-        maxW={'6xl'}
+        maxW={"6xl"}
         py={4}
-        direction={{ base: 'column', md: 'row' }}
+        direction={{ base: "column", md: "row" }}
         spacing={4}
-        justify={{ base: 'center', md: 'space-between' }}
-        align={{ base: 'center', md: 'center' }}>
+        justify={{ base: "center", md: "space-between" }}
+        align={{ base: "center", md: "center" }}
+      >
         <Text>© 2023 Tadeáš Fořt. All rights reserved</Text>
-        <Stack direction={'row'} spacing={6}>
-          <SocialButton label={'Twitter'} href={'https://twitter.com/FortTadeas'}>
+        <Stack direction={"row"} spacing={6}>
+          <SocialButton
+            label={"Twitter"}
+            href={"https://twitter.com/FortTadeas"}
+          >
             <FaTwitter />
           </SocialButton>
-          <SocialButton label={'GitHub'} href={'https://github.com/tadeasf'}>
+          <SocialButton label={"GitHub"} href={"https://github.com/tadeasf"}>
             <FaGithub />
           </SocialButton>
-          <SocialButton label={'Instagram'} href={'https://www.instagram.com/whostoletedsusername/'}>
+          <SocialButton
+            label={"Instagram"}
+            href={"https://www.instagram.com/whostoletedsusername/"}
+          >
             <FaInstagram />
           </SocialButton>
         </Stack>
       </Container>
     </Box>
-  )
+  );
 }

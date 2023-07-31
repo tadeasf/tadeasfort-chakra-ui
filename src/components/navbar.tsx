@@ -30,6 +30,7 @@ import { BsBook } from "react-icons/bs";
 import { IconType } from "react-icons";
 import { ColorModeSwitcher } from "./ColorModeSwitcher"; // Import the ColorModeSwitcher component
 import { Link as RouterLink } from "react-router-dom";
+import ReactGA from "react-ga";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -204,7 +205,14 @@ const NavLink = ({ name, path, onClose }: NavLinkProps) => {
         bg: link.bg,
         color: link.color,
       }}
-      onClick={() => onClose()}
+      onClick={() => {
+        onClose();
+        ReactGA.event({
+          category: "Navigation",
+          action: "Click",
+          label: name,
+        });
+      }}
     >
       {name}
     </Link>
@@ -221,7 +229,18 @@ interface MenuLinkProps {
 
 const MenuLink = ({ name, path, icon, onClose }: MenuLinkProps) => {
   return (
-    <Link href={path} isExternal onClick={() => onClose()}>
+    <Link
+      href={path}
+      isExternal
+      onClick={() => {
+        onClose();
+        ReactGA.event({
+          category: "Dropdown",
+          action: "Click",
+          label: name,
+        });
+      }}
+    >
       <MenuItem
         _hover={{
           color: "blue.400",

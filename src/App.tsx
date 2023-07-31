@@ -1,6 +1,11 @@
 /** @format */
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import * as React from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import Hero from "./components/hero";
@@ -14,30 +19,44 @@ import Stats from "./components/stats";
 import TechStack from "./components/techStack";
 import Photography from "./components/Photography";
 import SingleGallery from "./components/SingleGallery";
+import ReactGA from "react-ga";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<SinglePost />} />
-        <Route path="/photography" element={<Photography />} />
-        <Route path="/gallery/:slug" element={<SingleGallery />} />
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <TechStack />
-              <Stats />
-              <Milestones />
-            </>
-          }
-        />
-      </Routes>
-      <Footer />
-    </Router>
-  </ChakraProvider>
-);
+// Initialize Google Analytics
+ReactGA.initialize("G-9GE564L7WG");
+
+export const App = () => {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    // Update Google Analytics with page view each time the route changes
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+  }, [location]);
+
+  return (
+    <ChakraProvider theme={theme}>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<SinglePost />} />
+          <Route path="/photography" element={<Photography />} />
+          <Route path="/gallery/:slug" element={<SingleGallery />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <TechStack />
+                <Stats />
+                <Milestones />
+              </>
+            }
+          />
+        </Routes>
+        <Footer />
+      </Router>
+    </ChakraProvider>
+  );
+};
