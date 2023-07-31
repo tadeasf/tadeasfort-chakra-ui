@@ -1,2 +1,0 @@
-[build]
-  command = "chmod -R 777 /.cypress_cache && npm run build"
