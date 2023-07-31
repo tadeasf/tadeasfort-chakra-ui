@@ -17,13 +17,12 @@ import {
   useClipboard,
   useColorModeValue,
   VStack,
+  useToast,
 } from '@chakra-ui/react'
-import { FaGithub } from 'react-icons/fa';
-import { FaLinkedin } from 'react-icons/fa';
-import { FaUser } from 'react-icons/fa';
-import { FaTwitter } from 'react-icons/fa';
-import { IoMdMail } from 'react-icons/io';
-import { IoIosMail } from 'react-icons/io';
+import { FaGithub, FaLinkedin, FaUser, FaTwitter, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { IoMdMail, IoIosMail } from 'react-icons/io';
+import { useState } from 'react';
+import axios from 'axios';
 
 const confetti = {
   light: {
@@ -42,7 +41,41 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 
 export default function ContactFormWithSocialButtons() {
   const { hasCopied, onCopy } = useClipboard('taddy.fort@gmail.com')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const toast = useToast();
 
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+  
+    try {
+      await axios.post('/.netlify/functions/emailClient', { email, subject: name, message });
+      toast({
+        title: "Email sent.",
+        description: "We've sent your message.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+        icon: <FaCheckCircle />,
+      });
+    } catch (error) {
+      toast({
+        title: "An error occurred.",
+        description: "Unable to send your message.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        icon: <FaTimesCircle />,
+      });
+    }
+  
+    setIsSubmitting(false);
+  };
+  
+  
   return (
     <Flex
       bg={useColorModeValue('gray.100', 'gray.900')}
@@ -63,7 +96,7 @@ export default function ContactFormWithSocialButtons() {
               }}>
               Get in Touch
             </Heading>
-
+  
             <Stack
               spacing={{ base: 4, md: 8, lg: 20 }}
               direction={{ base: 'column', md: 'row' }}>
@@ -89,7 +122,7 @@ export default function ContactFormWithSocialButtons() {
                     isRound
                   />
                 </Tooltip>
-
+  
                 <Box as="a" href="https://github.com/tadeasf">
                   <IconButton
                     aria-label="github"
@@ -104,7 +137,7 @@ export default function ContactFormWithSocialButtons() {
                     isRound
                   />
                 </Box>
-
+  
                 <Box as="a" href="https://twitter.com/FortTadeas">
                   <IconButton
                     aria-label="twitter"
@@ -118,7 +151,7 @@ export default function ContactFormWithSocialButtons() {
                     isRound
                   />
                 </Box>
-
+  
                 <Box as="a" href="https://www.linkedin.com/in/tade%C3%A1%C5%A1-fo%C5%99t-317ab1124/">
                   <IconButton
                     aria-label="linkedin"
@@ -133,7 +166,7 @@ export default function ContactFormWithSocialButtons() {
                   />
                 </Box>
               </Stack>
-
+  
               <Box
                 bg={useColorModeValue('white', 'gray.700')}
                 borderRadius="lg"
@@ -143,37 +176,39 @@ export default function ContactFormWithSocialButtons() {
                 <VStack spacing={5}>
                   <FormControl isRequired>
                     <FormLabel>Name</FormLabel>
-
+  
                     <InputGroup>
                       <InputLeftElement>
                         <FaUser />
                       </InputLeftElement>
-                      <Input type="text" name="name" placeholder="Your Name" />
+                      <Input type="text" name="name" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} />
                     </InputGroup>
                   </FormControl>
-
+  
                   <FormControl isRequired>
                     <FormLabel>Email</FormLabel>
-
+  
                     <InputGroup>
                       <InputLeftElement>
                         <IoIosMail />
                       </InputLeftElement>
-                      <Input type="email" name="email" placeholder="Your Email" />
+                      <Input type="email" name="email" placeholder="Your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </InputGroup>
                   </FormControl>
-
+  
                   <FormControl isRequired>
                     <FormLabel>Message</FormLabel>
-
+  
                     <Textarea
                       name="message"
                       placeholder="Your Message"
                       rows={6}
                       resize="none"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                     />
                   </FormControl>
-
+  
                   <Button
                     colorScheme="blue"
                     bg="blue.400"
@@ -181,7 +216,10 @@ export default function ContactFormWithSocialButtons() {
                     _hover={{
                       bg: 'blue.500',
                     }}
-                    width="full">
+                    width="full"
+                    onClick={handleSubmit}
+                    isLoading={isSubmitting}
+                    loadingText="Sending">
                     Send Message
                   </Button>
                 </VStack>
@@ -191,5 +229,5 @@ export default function ContactFormWithSocialButtons() {
         </Box>
       </Box>
     </Flex>
-  )
+  )  
 }
