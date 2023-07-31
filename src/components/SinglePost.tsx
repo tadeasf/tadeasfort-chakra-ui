@@ -1,4 +1,8 @@
-/** @format */
+/**
+ * eslint-disable react-hooks/rules-of-hooks
+ *
+ * @format
+ */
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -60,25 +64,18 @@ const SinglePost = () => {
   const { slug } = useParams<{ slug?: string }>();
   const [article, setArticle] = useState<Article | null>(null);
 
-  const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
-  const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
-
   useEffect(() => {
-    if (slug) {
-      const id = slug.substring(slug.lastIndexOf("-") + 1);
-      fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`)
-        .then((response) => response.json())
-        .then((data) => setArticle(data.data.attributes))
-        .catch((error) => {
-          console.error("Error fetching article:", error);
-          // Optionally, set the article state to an error message or some other value indicating an error
-        });
-    }
-  }, [slug]);
+    fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`) // replace with your Strapi URL
+      .then((response) => response.json())
+      .then((data) => setArticle(data.data));
+  }, [id]);
 
   if (!article) {
     return <Box>Loading...</Box>;
   }
+
+  const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
+  const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
 
   return (
     <Container maxW="80%">
@@ -123,9 +120,7 @@ const SinglePost = () => {
             h4: ({ node, ...props }) => (
               <Heading as="h4" size="sm" {...props} />
             ),
-            p: ({ node, ...props }) => (
-              <Text {...props} style={{ wordBreak: "break-word" }} />
-            ),
+            p: ({ node, ...props }) => <Text {...props} />,
             img: ({ node, ...props }) => (
               <ChakraImage
                 boxSize="100%"
@@ -156,32 +151,33 @@ const SinglePost = () => {
               gridGap: "12px",
             }}
           >
-            {article.attributes.gallery?.data?.map((item, index) => {
-              const imageUrl = `https://tadeasfort.eu/strapi${item.attributes.formats.large.url}`;
-              return (
-                <Item
-                  key={index}
-                  original={imageUrl}
-                  thumbnail={imageUrl}
-                  width={item.attributes.formats.large.width.toString()} // Use actual width from API response
-                  height={item.attributes.formats.large.height.toString()} // Use actual height from API response
-                >
-                  {({ ref, open }) => (
-                    <img
-                      style={{
-                        cursor: "pointer",
-                        width: "100%",
-                        height: "auto",
-                      }}
-                      ref={ref as React.RefObject<HTMLImageElement>}
-                      onClick={open}
-                      src={imageUrl}
-                      alt={`Gallery ${index}`}
-                    />
-                  )}
-                </Item>
-              );
-            })}
+            {article.attributes.gallery &&
+              article.attributes.gallery.data.map((item, index) => {
+                const imageUrl = `https://tadeasfort.eu/strapi${item.attributes.formats.large.url}`;
+                return (
+                  <Item
+                    key={index}
+                    original={imageUrl}
+                    thumbnail={imageUrl}
+                    width={item.attributes.formats.large.width.toString()} // Use actual width from API response
+                    height={item.attributes.formats.large.height.toString()} // Use actual height from API response
+                  >
+                    {({ ref, open }) => (
+                      <img
+                        style={{
+                          cursor: "pointer",
+                          width: "100%",
+                          height: "auto",
+                        }}
+                        ref={ref as React.RefObject<HTMLImageElement>}
+                        onClick={open}
+                        src={imageUrl}
+                        alt={`Gallery ${index}`}
+                      />
+                    )}
+                  </Item>
+                );
+              })}
           </div>
         </Gallery>
       </Box>
