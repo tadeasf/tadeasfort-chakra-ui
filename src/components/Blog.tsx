@@ -63,7 +63,16 @@ const Blog = () => {
   useEffect(() => {
     fetch("https://tadeasfort.eu/strapi/api/articles")
       .then((response) => response.json())
-      .then((data) => setArticles(data.data))
+      .then((data) => {
+        // Sort the articles based on their published date in descending order
+        const sortedArticles = data.data.sort((a: Article, b: Article) => {
+          const dateA = new Date(a.attributes.published).getTime();
+          const dateB = new Date(b.attributes.published).getTime();
+          return dateB - dateA;
+        });
+
+        setArticles(sortedArticles);
+      })
       .catch((error) => console.error("Error:", error));
   }, []);
 
