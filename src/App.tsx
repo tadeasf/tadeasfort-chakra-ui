@@ -21,6 +21,7 @@ import Photography from "./components/Photography";
 import SingleGallery from "./components/SingleGallery";
 import ReactGA from "react-ga4";
 import GithubData from "./components/GithubData";
+import netlifyIdentity from "netlify-identity-widget";
 
 // Initialize Google Analytics
 ReactGA.initialize([
@@ -28,6 +29,8 @@ ReactGA.initialize([
     trackingId: "G-9GE564L7WG",
   },
 ]);
+
+netlifyIdentity.init();
 
 const MainRoutes = () => {
   const location = useLocation();
