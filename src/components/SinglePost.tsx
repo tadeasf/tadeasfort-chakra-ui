@@ -1,14 +1,4 @@
-/**
- * eslint-disable react-hooks/rules-of-hooks
- *
- * @format
- */
-
-/**
- * eslint-disable react-hooks/rules-of-hooks
- *
- * @format
- */
+/** @format */
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -67,18 +57,24 @@ interface Article {
 }
 
 const SinglePost = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug?: string }>();
   const [article, setArticle] = useState<Article | null>(null);
 
-  // Call useColorModeValue at the top level of your component
   const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
   const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
 
   useEffect(() => {
-    fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`) // replace with your Strapi URL
-      .then((response) => response.json())
-      .then((data) => setArticle(data.data));
-  }, [id]);
+    if (slug) {
+      fetch(
+        `https://tadeasfort.eu/strapi/api/articles?title=${slug.replace(
+          /-/g,
+          " "
+        )}`
+      )
+        .then((response) => response.json())
+        .then((data) => setArticle(data.data[0]));
+    }
+  }, [slug]);
 
   if (!article) {
     return <Box>Loading...</Box>;

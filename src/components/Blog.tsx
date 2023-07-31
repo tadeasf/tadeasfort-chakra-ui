@@ -1,5 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react';
+/** @format */
+
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Box,
@@ -10,25 +11,33 @@ import {
   Text,
   Icon,
   Tag,
-  useColorModeValue
-} from '@chakra-ui/react';
-import { GoChevronRight } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { GoChevronRight } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 interface Article {
   id: number;
   attributes: {
     title: string;
-    description: string; // changed from content to description
+    description: string;
     published: string;
     tags: string;
   };
 }
 
-// Define a list of colors
-const colors = ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'cyan', 'purple', 'pink'];
+const colors = [
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "teal",
+  "blue",
+  "cyan",
+  "purple",
+  "pink",
+];
 
-// Simple string hash function
 function getHashCode(str: string) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
@@ -37,47 +46,49 @@ function getHashCode(str: string) {
   return hash;
 }
 
-// Function to get a color based on a string
 function getStringColor(str: string) {
   return colors[Math.abs(getHashCode(str)) % colors.length];
 }
 
 const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const boxBg = useColorModeValue("gray.100", "gray.800");
+  const boxShadowColor = useColorModeValue(
+    "0 4px 6px rgba(160, 174, 192, 0.6)",
+    "0 4px 6px rgba(9, 17, 28, 0.9)"
+  );
+  const hoverColor = useColorModeValue("gray.200", "gray.700");
 
   useEffect(() => {
-    fetch('https://tadeasfort.eu/strapi/api/articles') // replace with your Strapi URL
-      .then(response => response.json())
-      .then(data => setArticles(data.data))
-      .catch(error => console.error('Error:', error));
+    fetch("https://tadeasfort.eu/strapi/api/articles")
+      .then((response) => response.json())
+      .then((data) => setArticles(data.data))
+      .catch((error) => console.error("Error:", error));
   }, []);
 
   return (
     <Container p={{ base: 5, md: 10 }}>
-      <VStack spacing={8} w={{ base: 'auto', md: '2xl' }}>
-        {articles.map(article => (
+      <VStack spacing={8} w={{ base: "auto", md: "2xl" }}>
+        {articles.map((article) => (
           <Stack
             key={article.id}
             direction="column"
             spacing={4}
             p={4}
-            bg={useColorModeValue('gray.100', 'gray.800')}
+            bg={boxBg}
             border="1px solid"
             borderColor="blue.100"
             _hover={{
-              borderColor: 'blue.300',
-              boxShadow: useColorModeValue(
-                '0 4px 6px rgba(160, 174, 192, 0.6)',
-                '0 4px 6px rgba(9, 17, 28, 0.9)'
-              )
+              borderColor: "blue.300",
+              boxShadow: boxShadowColor,
             }}
             rounded="lg"
           >
             <HStack spacing={2} mb={1}>
-              {article.attributes.tags.split(',').map((tag, index) => (
+              {article.attributes.tags.split(",").map((tag, index) => (
                 <Tag
                   key={index}
-                  colorScheme={getStringColor(tag.trim())} // Use the color based on the tag string
+                  colorScheme={getStringColor(tag.trim())}
                   borderRadius="full"
                 >
                   {tag.trim()}
@@ -87,21 +98,31 @@ const Blog = () => {
             <Box textAlign="left">
               <ChakraLink
                 as={Link}
-                to={`/blog/${article.id}`}
+                to={`/blog/${article.attributes.title
+                  .replace(/\s+/g, "-")
+                  .toLowerCase()}`}
                 fontSize="xl"
                 lineHeight={1.2}
                 fontWeight="bold"
                 w="100%"
-                _hover={{ color: 'blue.400', textDecoration: 'underline' }}
+                _hover={{ color: "blue.400", textDecoration: "underline" }}
               >
                 {article.attributes.title}
               </ChakraLink>
-              <Text fontSize="md" color="gray.500" noOfLines={2} lineHeight="normal">
-                {article.attributes.description} 
+              <Text
+                fontSize="md"
+                color="gray.500"
+                noOfLines={2}
+                lineHeight="normal"
+              >
+                {article.attributes.description}
               </Text>
             </Box>
             <Box>
-              <Stack justify="space-between" direction={{ base: 'column', sm: 'row' }}>
+              <Stack
+                justify="space-between"
+                direction={{ base: "column", sm: "row" }}
+              >
                 <Box>
                   <Text fontSize="sm" color="gray.500">
                     {new Date(article.attributes.published).toLocaleString()}
@@ -109,7 +130,9 @@ const Blog = () => {
                 </Box>
                 <HStack
                   as={Link}
-                  to={`/blog/${article.id}`}
+                  to={`/blog/${article.attributes.title
+                    .replace(/\s+/g, "-")
+                    .toLowerCase()}`}
                   spacing={1}
                   p={1}
                   alignItems="center"
@@ -118,7 +141,7 @@ const Blog = () => {
                   margin="auto 0"
                   rounded="md"
                   color="blue.400"
-                  _hover={{ bg: useColorModeValue('gray.200', 'gray.700') }}
+                  _hover={{ bg: hoverColor }}
                 >
                   <Text fontSize="sm"> Read more</Text>
                   <Icon as={GoChevronRight} w={4} h={4} />
