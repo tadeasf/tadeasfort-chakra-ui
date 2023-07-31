@@ -14,8 +14,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { format, parseISO } from "date-fns";
+import { Heading, Box, useColorMode } from "@chakra-ui/react"; // Import Chakra UI components and CSSReset
+
 import DataTable from "react-data-table-component";
-import { Heading, Box } from "@chakra-ui/react"; // Import Chakra UI components
 
 type Repo = {
   name: string;
@@ -77,6 +78,46 @@ const columns: Column[] = [
 
 const GithubData = () => {
   const [data, setData] = useState<Repo[] | null>(null);
+  const { colorMode } = useColorMode(); // Get the current color mode (light/dark)
+
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <Box
+          bg={colorMode === "light" ? "white" : "gray.700"}
+          color={colorMode === "light" ? "black" : "white"}
+          p={2}
+          boxShadow="md"
+        >
+          <p>Date: {data.date}</p>
+          <p>Lines Added: {data.linesAdded}</p>
+          <p>Lines Deleted: {data.linesDeleted}</p>
+        </Box>
+      );
+    }
+
+    return null;
+  };
+
+  const CustomBarTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <Box
+          bg={colorMode === "light" ? "white" : "gray.700"}
+          color={colorMode === "light" ? "black" : "white"}
+          p={2}
+          boxShadow="md"
+        >
+          <p>{data.name}</p>
+          <p>Value: {data.value}</p>
+        </Box>
+      );
+    }
+
+    return null;
+  };
 
   useEffect(() => {
     axios
@@ -131,7 +172,11 @@ const GithubData = () => {
     : [];
 
   return (
-    <Box>
+    <Box
+      bg={colorMode === "light" ? "white" : "gray.800"}
+      color={colorMode === "light" ? "black" : "white"}
+    >
+      {/* Use Chakra UI's colorMode to set the background and text color based on the current color mode */}
       <Heading as="h1" size="xl" textAlign="center" my={5}>
         GitHub Data
       </Heading>
@@ -145,7 +190,8 @@ const GithubData = () => {
           <CartesianGrid stroke="#ccc" />
           <XAxis dataKey="date" />
           <YAxis />
-          <Tooltip />
+          {/* Use the CustomTooltip component */}
+          <Tooltip content={<CustomTooltip />} />
         </LineChart>
       </ResponsiveContainer>
       <Heading as="h1" size="l" textAlign="center" my={5}>
@@ -156,7 +202,8 @@ const GithubData = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          {/* Use the CustomTooltip component */}
+          <Tooltip content={<CustomBarTooltip />} />
           <Bar dataKey="totalLinesOfCode" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
@@ -168,11 +215,17 @@ const GithubData = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          {/* Use the CustomTooltip component */}
+          <Tooltip content={<CustomBarTooltip />} />
           <Bar dataKey="numberOfCommits" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
-      <DataTable title="Repository Data" columns={columns} data={tableData} />
+      <DataTable
+        title="Repository Data"
+        columns={columns}
+        data={tableData}
+        theme={colorMode === "light" ? "default" : "dark"}
+      />
     </Box>
   );
 };
