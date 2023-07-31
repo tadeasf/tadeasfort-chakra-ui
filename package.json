@@ -64,6 +64,9 @@
     "@types/react-image-gallery": "^1.2.0",
     "@types/react-responsive-masonry": "^2.1.0",
     "@types/react-slick": "^0.23.10",
-    "@types/react-stack-grid": "^0.7.3"
+    "@types/react-stack-grid": "^0.7.3",
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-prettier": "^5.0.0"
   }
 }

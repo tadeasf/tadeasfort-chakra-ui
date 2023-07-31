@@ -25,6 +25,23 @@ interface Article {
   };
 }
 
+// Define a list of colors
+const colors = ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'cyan', 'purple', 'pink'];
+
+// Simple string hash function
+function getHashCode(str: string) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return hash;
+}
+
+// Function to get a color based on a string
+function getStringColor(str: string) {
+  return colors[Math.abs(getHashCode(str)) % colors.length];
+}
+
 const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
@@ -60,7 +77,7 @@ const Blog = () => {
               {article.attributes.tags.split(',').map((tag, index) => (
                 <Tag
                   key={index}
-                  colorScheme={useColorModeValue('blackAlpha', 'gray')}
+                  colorScheme={getStringColor(tag.trim())} // Use the color based on the tag string
                   borderRadius="full"
                 >
                   {tag.trim()}
