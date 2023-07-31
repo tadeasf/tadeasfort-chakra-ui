@@ -52,7 +52,7 @@ export default function ContactFormWithSocialButtons() {
     setIsSubmitting(true);
   
     try {
-      await axios.post('/.netlify/functions/emailClient', { email, subject: name, message });
+      await axios.post('/.netlify/functions/emailClient', { email, name, message });
       toast({
         title: "Email sent.",
         description: "We've sent your message.",
