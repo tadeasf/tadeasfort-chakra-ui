@@ -1,4 +1,9 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/**
+ * eslint-disable react-hooks/rules-of-hooks
+ *
+ * @format
+ */
+
 import {
   Box,
   Flex,
@@ -14,78 +19,95 @@ import {
   Icon,
   IconButton,
   useDisclosure,
-  useColorModeValue
-} from '@chakra-ui/react';
+  useColorModeValue,
+} from "@chakra-ui/react";
 // Here we have used react-icons package for the icons
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { AiOutlineClose, AiTwotoneThunderbolt } from 'react-icons/ai';
-import { BiChevronDown } from 'react-icons/bi';
-import { MdTimeline } from 'react-icons/md';
-import { BsBook } from 'react-icons/bs';
-import { IconType } from 'react-icons';
-import { ColorModeSwitcher } from './ColorModeSwitcher'; // Import the ColorModeSwitcher component
-import { Link as RouterLink } from 'react-router-dom';
+import { GiHamburgerMenu } from "react-icons/gi";
+import { AiOutlineClose, AiTwotoneThunderbolt } from "react-icons/ai";
+import { BiChevronDown } from "react-icons/bi";
+import { MdTimeline } from "react-icons/md";
+import { BsBook } from "react-icons/bs";
+import { IconType } from "react-icons";
+import { ColorModeSwitcher } from "./ColorModeSwitcher"; // Import the ColorModeSwitcher component
+import { Link as RouterLink } from "react-router-dom";
 
 const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'Contact', path: '/contact' },
-  { name: 'Blog', path: '/blog' },
-  { name: 'Photography', path: '/photography' },
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+  { name: "Blog", path: "/blog" },
+  { name: "Photography", path: "/photography" },
 ];
 
 const dropdownLinks = [
   {
-    name: 'Github projects',
-    path: 'https://github.com/tadeasf',
-    icon: MdTimeline
+    name: "Github projects",
+    path: "https://github.com/tadeasf",
+    icon: MdTimeline,
   },
   {
-    name: 'CV',
-    path: 'https://www.linkedin.com/in/tade%C3%A1%C5%A1-fo%C5%99t-317ab1124/',
-    icon: BsBook
+    name: "CV",
+    path: "https://www.linkedin.com/in/tade%C3%A1%C5%A1-fo%C5%99t-317ab1124/",
+    icon: BsBook,
   },
   {
-    name: 'Dorian Film',
-    path: 'https://dorianfilm.cz',
-    icon: AiTwotoneThunderbolt
+    name: "Dorian Film",
+    path: "https://dorianfilm.cz",
+    icon: AiTwotoneThunderbolt,
   },
   {
-    name: 'Dev Portfolio',
-    path: 'https://symphonious-croquembouche-40e5ff.netlify.app',
-    icon: AiTwotoneThunderbolt
+    name: "Dev Portfolio",
+    path: "https://symphonious-croquembouche-40e5ff.netlify.app",
+    icon: AiTwotoneThunderbolt,
   },
   {
-    name: 'Personal Blog',
-    path: 'https://tadeasfort.cz',
-    icon: AiTwotoneThunderbolt
+    name: "Personal Blog",
+    path: "https://tadeasfort.cz",
+    icon: AiTwotoneThunderbolt,
   },
   {
-    name: 'Photography Portfolio',
-    path: 'https://fortfoti.cz',
-    icon: AiTwotoneThunderbolt
-  }
+    name: "Photography Portfolio",
+    path: "https://fortfoti.cz",
+    icon: AiTwotoneThunderbolt,
+  },
 ];
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const menuProps = {
-    bg: useColorModeValue('gray.200', 'gray.700'),
-    color: useColorModeValue('blue.500', 'blue.200')
+    bg: useColorModeValue("gray.200", "gray.700"),
+    color: useColorModeValue("blue.500", "blue.200"),
   };
 
+  const boxShadowColor = useColorModeValue(
+    "2px 4px 6px 2px rgba(160, 174, 192, 0.6)",
+    "2px 4px 6px 2px rgba(9, 17, 28, 0.6)"
+  );
+  const menuListBg = useColorModeValue("rgb(255, 255, 255)", "rgb(26, 32, 44)");
+
   return (
-    <Box px={4} boxShadow="lg" width="100%">
-      <Flex h={16} alignItems="center" justifyContent="space-between" maxW={800} mx="auto">
+    <Box px={4} boxShadow="lg" width="100%" zIndex={10} position="relative">
+      <Flex
+        h={16}
+        alignItems="center"
+        justifyContent="space-between"
+        maxW={800}
+        mx="auto"
+      >
         <IconButton
           size="md"
           icon={isOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
           aria-label="Open Menu"
-          display={['inherit', 'inherit', 'none']}
+          display={["inherit", "inherit", "none"]}
           onClick={isOpen ? onClose : onOpen}
         />
         <HStack spacing={8} alignItems="center">
-          <HStack as="nav" spacing={1} display={{ base: 'none', md: 'flex' }} alignItems="center">
+          <HStack
+            as="nav"
+            spacing={1}
+            display={{ base: "none", md: "flex" }}
+            alignItems="center"
+          >
             {navLinks.map((link, index) => (
               <NavLink key={index} {...link} onClose={onClose} />
             ))}
@@ -104,7 +126,7 @@ export default function Navbar() {
                     fontWeight="normal"
                     rounded="md"
                     height="auto"
-                    _hover={{ color: 'blue.400', bg: menuProps.bg }}
+                    _hover={{ color: "blue.400", bg: menuProps.bg }}
                   >
                     <Flex alignItems="center">
                       <Text>Links</Text>
@@ -114,18 +136,15 @@ export default function Navbar() {
                         w={5}
                         ml={1}
                         transition="all .25s ease-in-out"
-                        transform={isOpen ? 'rotate(180deg)' : ''}
+                        transform={isOpen ? "rotate(180deg)" : ""}
                       />
                     </Flex>
                   </MenuButton>
                   <MenuList
                     zIndex={5}
-                    bg={useColorModeValue('rgb(255, 255, 255)', 'rgb(26, 32, 44)')}
+                    bg={menuListBg}
                     border="none"
-                    boxShadow={useColorModeValue(
-                      '2px 4px 6px 2px rgba(160, 174, 192, 0.6)',
-                      '2px 4px 6px 2px rgba(9, 17, 28, 0.6)'
-                    )}
+                    boxShadow={boxShadowColor}
                   >
                     {dropdownLinks.map((link, index) => (
                       <MenuLink
@@ -147,7 +166,7 @@ export default function Navbar() {
 
       {/* Mobile Screen Links */}
       {isOpen ? (
-        <Box pb={4} display={['inherit', 'inherit', 'none']}>
+        <Box pb={4} display={["inherit", "inherit", "none"]}>
           <Stack as="nav" spacing={2}>
             {navLinks.map((link, index) => (
               <NavLink key={index} {...link} onClose={onClose} />
@@ -168,8 +187,8 @@ interface NavLinkProps {
 
 const NavLink = ({ name, path, onClose }: NavLinkProps) => {
   const link = {
-    bg: useColorModeValue('gray.200', 'gray.700'),
-    color: useColorModeValue('blue.500', 'blue.200')
+    bg: useColorModeValue("gray.200", "gray.700"),
+    color: useColorModeValue("blue.500", "blue.200"),
   };
 
   return (
@@ -181,9 +200,9 @@ const NavLink = ({ name, path, onClose }: NavLinkProps) => {
       lineHeight="inherit"
       rounded="md"
       _hover={{
-        textDecoration: 'none',
+        textDecoration: "none",
         bg: link.bg,
-        color: link.color
+        color: link.color,
       }}
       onClick={() => onClose()}
     >
@@ -191,7 +210,6 @@ const NavLink = ({ name, path, onClose }: NavLinkProps) => {
     </Link>
   );
 };
-
 
 // Dropdown MenuLink Component
 interface MenuLinkProps {
@@ -203,11 +221,13 @@ interface MenuLinkProps {
 
 const MenuLink = ({ name, path, icon, onClose }: MenuLinkProps) => {
   return (
-    <Link 
-      href={path} 
-      isExternal 
-      onClick={() => onClose()}>
-      <MenuItem _hover={{ color: 'blue.400', bg: useColorModeValue('gray.200', 'gray.700') }}>
+    <Link href={path} isExternal onClick={() => onClose()}>
+      <MenuItem
+        _hover={{
+          color: "blue.400",
+          bg: useColorModeValue("gray.200", "gray.700"),
+        }}
+      >
         <HStack>
           <Icon as={icon} size={18} color="blue.400" />
           <Text>{name}</Text>
@@ -216,4 +236,3 @@ const MenuLink = ({ name, path, icon, onClose }: MenuLinkProps) => {
     </Link>
   );
 };
-
