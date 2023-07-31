@@ -24,7 +24,7 @@ import ReactGA from "react-ga";
 // Initialize Google Analytics
 ReactGA.initialize("G-9GE564L7WG");
 
-export const App = () => {
+const MainRoutes = () => {
   const location = useLocation();
 
   React.useEffect(() => {
@@ -34,29 +34,33 @@ export const App = () => {
   }, [location]);
 
   return (
-    <ChakraProvider theme={theme}>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<SinglePost />} />
-          <Route path="/photography" element={<Photography />} />
-          <Route path="/gallery/:slug" element={<SingleGallery />} />
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero />
-                <TechStack />
-                <Stats />
-                <Milestones />
-              </>
-            }
-          />
-        </Routes>
-        <Footer />
-      </Router>
-    </ChakraProvider>
+    <Routes>
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:slug" element={<SinglePost />} />
+      <Route path="/photography" element={<Photography />} />
+      <Route path="/gallery/:slug" element={<SingleGallery />} />
+      <Route
+        path="/"
+        element={
+          <>
+            <Hero />
+            <TechStack />
+            <Stats />
+            <Milestones />
+          </>
+        }
+      />
+    </Routes>
   );
 };
+
+export const App = () => (
+  <ChakraProvider theme={theme}>
+    <Router>
+      <Navbar />
+      <MainRoutes />
+      <Footer />
+    </Router>
+  </ChakraProvider>
+);
