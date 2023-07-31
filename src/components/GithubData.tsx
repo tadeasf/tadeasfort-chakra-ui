@@ -21,8 +21,10 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  Flex,
+  Text,
+  Grid,
 } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 
 type Repo = {
   name: string;
@@ -119,6 +121,13 @@ const GithubData = () => {
 
   const repo = data.find((repo) => repo.name === "tadeasfort-chakra-ui");
 
+  // Define the blinking animation
+  const blink = keyframes`
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+  `;
+
   const lineChartData = data[0].commits.map((commit) => ({
     date: format(parseISO(commit.date), "yyyy-MM-dd"),
     linesAdded: commit.linesAdded,
@@ -153,26 +162,54 @@ const GithubData = () => {
         GitHub Data
       </Heading>
       {repo && (
-        <Flex justify="center" align="center" wrap="wrap" my={5}>
-          <Stat mx={2}>
-            <StatLabel>Repository Name</StatLabel>
-            <StatNumber>{repo.name}</StatNumber>
+        <Grid
+          templateColumns="repeat(3, 1fr)"
+          gap={6}
+          justifyItems="center"
+          alignItems="center"
+          my={5}
+        >
+          <Stat>
+            <StatLabel fontSize="lg">Repository Name</StatLabel>
+            <StatNumber fontSize="2xl">{repo.name}</StatNumber>
           </Stat>
-          <Stat mx={2}>
-            <StatLabel>Total Lines Added</StatLabel>
-            <StatNumber color="green.500">{repo.totalLinesAdded}</StatNumber>
-          </Stat>
-          <Stat mx={2}>
-            <StatLabel>Total Lines Deleted</StatLabel>
-            <StatNumber color="red.500">{repo.totalLinesDeleted}</StatNumber>
-          </Stat>
-          <Stat mx={2}>
-            <StatLabel>Last Commit Date</StatLabel>
-            <StatNumber>
-              {format(parseISO(repo.dateUpdated), "yyyy-MM-dd")}
+          <Stat>
+            <StatLabel fontSize="lg">Total Lines Added</StatLabel>
+            <StatNumber fontSize="2xl" color="green.500">
+              {repo.totalLinesAdded}
             </StatNumber>
           </Stat>
-        </Flex>
+          <Stat>
+            <StatLabel fontSize="lg">Total Lines Deleted</StatLabel>
+            <StatNumber fontSize="2xl" color="red.500">
+              {repo.totalLinesDeleted}
+            </StatNumber>
+          </Stat>
+          <Stat>
+            <StatLabel fontSize="lg">Last Commit Date</StatLabel>
+            <StatNumber fontSize="2xl">
+              <Text color="darkblue">
+                {format(parseISO(repo.dateUpdated), "HH")}
+                <Text as="span" animation={`${blink} 1s infinite`}>
+                  :
+                </Text>
+                {format(parseISO(repo.dateUpdated), "mm")}
+                <Text as="span" animation={`${blink} 1s infinite`}>
+                  :
+                </Text>
+                {format(parseISO(repo.dateUpdated), "ss dd-MM-yyyy")}
+              </Text>
+            </StatNumber>
+          </Stat>
+          <Stat>
+            <StatLabel fontSize="lg">Number of Commits</StatLabel>
+            <StatNumber fontSize="2xl">{repo.numberOfCommits}</StatNumber>
+          </Stat>
+          <Stat>
+            <StatLabel fontSize="lg">Total Lines of Code</StatLabel>
+            <StatNumber fontSize="2xl">{repo.totalLinesOfCode}</StatNumber>
+          </Stat>
+        </Grid>
       )}
       <Heading as="h1" size="l" textAlign="center" my={5}>
         Lines Added/Deleted for all repositories
