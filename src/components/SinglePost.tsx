@@ -24,7 +24,7 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 
 interface Article {
-  id: number;
+  slug: string;
   attributes: {
     title: string;
     content: string;
@@ -61,16 +61,16 @@ interface Article {
 }
 
 const SinglePost = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [article, setArticle] = useState<Article | null>(null);
   const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
   const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
 
   useEffect(() => {
-    fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`) // replace with your Strapi URL
+    fetch(`https://tadeasfort.eu/strapi/api/articles/${slug}?populate=*`) // replace with your Strapi URL
       .then((response) => response.json())
       .then((data) => setArticle(data.data));
-  }, [id]);
+  }, [slug]);
 
   if (!article) {
     return <Box>Loading...</Box>;
@@ -149,33 +149,32 @@ const SinglePost = () => {
               gridGap: "12px",
             }}
           >
-            {article.attributes.gallery &&
-              article.attributes.gallery.data.map((item, index) => {
-                const imageUrl = `https://tadeasfort.eu/strapi${item.attributes.formats.large.url}`;
-                return (
-                  <Item
-                    key={index}
-                    original={imageUrl}
-                    thumbnail={imageUrl}
-                    width={item.attributes.formats.large.width.toString()} // Use actual width from API response
-                    height={item.attributes.formats.large.height.toString()} // Use actual height from API response
-                  >
-                    {({ ref, open }) => (
-                      <img
-                        style={{
-                          cursor: "pointer",
-                          width: "100%",
-                          height: "auto",
-                        }}
-                        ref={ref as React.RefObject<HTMLImageElement>}
-                        onClick={open}
-                        src={imageUrl}
-                        alt={`Gallery ${index}`}
-                      />
-                    )}
-                  </Item>
-                );
-              })}
+            {article.attributes.gallery?.data?.map((item, index) => {
+              const imageUrl = `https://tadeasfort.eu/strapi${item.attributes.formats.large.url}`;
+              return (
+                <Item
+                  key={index}
+                  original={imageUrl}
+                  thumbnail={imageUrl}
+                  width={item.attributes.formats.large.width.toString()} // Use actual width from API response
+                  height={item.attributes.formats.large.height.toString()} // Use actual height from API response
+                >
+                  {({ ref, open }) => (
+                    <img
+                      style={{
+                        cursor: "pointer",
+                        width: "100%",
+                        height: "auto",
+                      }}
+                      ref={ref as React.RefObject<HTMLImageElement>}
+                      onClick={open}
+                      src={imageUrl}
+                      alt={`Gallery ${index}`}
+                    />
+                  )}
+                </Item>
+              );
+            })}
           </div>
         </Gallery>
       </Box>
