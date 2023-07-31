@@ -111,7 +111,26 @@ const GithubData = () => {
           boxShadow="md"
         >
           <p>{data.name}</p>
-          <p>Value: {data.value}</p>
+          <p>Value: {data.totalLinesOfCode}</p>
+        </Box>
+      );
+    }
+
+    return null;
+  };
+
+  const CustomBarTooltip2 = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <Box
+          bg={colorMode === "light" ? "white" : "gray.700"}
+          color={colorMode === "light" ? "black" : "white"}
+          p={2}
+          boxShadow="md"
+        >
+          <p>{data.name}</p>
+          <p>Value: {data.numberOfCommits}</p>
         </Box>
       );
     }
@@ -216,7 +235,7 @@ const GithubData = () => {
           <XAxis dataKey="name" />
           <YAxis />
           {/* Use the CustomTooltip component */}
-          <Tooltip content={<CustomBarTooltip />} />
+          <Tooltip content={<CustomBarTooltip2 />} />
           <Bar dataKey="numberOfCommits" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
