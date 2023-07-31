@@ -1,11 +1,33 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import { Box, Heading, Text, VStack, Image as ChakraImage, Divider, HStack, Tag, Container, useColorModeValue } from '@chakra-ui/react';
-import gfm from 'remark-gfm';
-import { Gallery, Item } from 'react-photoswipe-gallery';
-import 'photoswipe/dist/photoswipe.css';
+/**
+ * eslint-disable react-hooks/rules-of-hooks
+ *
+ * @format
+ */
+
+/**
+ * eslint-disable react-hooks/rules-of-hooks
+ *
+ * @format
+ */
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Image as ChakraImage,
+  Divider,
+  HStack,
+  Tag,
+  Container,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import gfm from "remark-gfm";
+import { Gallery, Item } from "react-photoswipe-gallery";
+import "photoswipe/dist/photoswipe.css";
 
 interface Article {
   id: number;
@@ -23,11 +45,11 @@ interface Article {
               url: string;
               width: number;
               height: number;
-            }
-          }
-        }
-      }
-    }
+            };
+          };
+        };
+      };
+    };
     gallery: {
       data: Array<{
         attributes: {
@@ -36,11 +58,11 @@ interface Article {
               url: string;
               width: number;
               height: number;
-            }
-          }
-        }
-      }>
-    }
+            };
+          };
+        };
+      }>;
+    };
   };
 }
 
@@ -48,18 +70,19 @@ const SinglePost = () => {
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<Article | null>(null);
 
+  // Call useColorModeValue at the top level of your component
+  const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
+  const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
+
   useEffect(() => {
     fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`) // replace with your Strapi URL
-      .then(response => response.json())
-      .then(data => setArticle(data.data));
+      .then((response) => response.json())
+      .then((data) => setArticle(data.data));
   }, [id]);
 
   if (!article) {
     return <Box>Loading...</Box>;
   }
-
-  const boxBg = useColorModeValue('whiteAlpha.800', 'whiteAlpha.200');
-  const boxShadowColor = useColorModeValue('gray.500', 'whiteAlpha.200');
 
   return (
     <Container maxW="80%">
@@ -72,14 +95,10 @@ const SinglePost = () => {
             alt={article.attributes.title}
             fallbackSrc="https://via.placeholder.com/150"
           />
-          <Box
-            position="absolute"
-            bottom="0"
-            left="0"
-            bg={boxBg}
-            p="4"
-          >
-            <Heading as="h1" size="2xl">{article.attributes.title}</Heading>
+          <Box position="absolute" bottom="0" left="0" bg={boxBg} p="4">
+            <Heading as="h1" size="2xl">
+              {article.attributes.title}
+            </Heading>
           </Box>
         </Box>
         <Box
@@ -88,30 +107,45 @@ const SinglePost = () => {
           borderRadius="md"
           bg={boxBg}
         >
-          <Text color="gray.500">{new Date(article.attributes.published).toLocaleDateString()}</Text>
+          <Text color="gray.500">
+            {new Date(article.attributes.published).toLocaleDateString()}
+          </Text>
           <Text>{article.attributes.description}</Text>
         </Box>
         <ReactMarkdown
           remarkPlugins={[gfm]}
           components={{
-            h1: ({node, ...props}) => <Heading as="h1" size="xl" {...props} />,
-            h2: ({node, ...props}) => <Heading as="h2" size="lg" {...props} />,
-            h3: ({node, ...props}) => <Heading as="h3" size="md" {...props} />,
-            h4: ({node, ...props}) => <Heading as="h4" size="sm" {...props} />,
-            p: ({node, ...props}) => <Text {...props} />,
-            img: ({node, ...props}) => <ChakraImage boxSize="100%" objectFit="cover" {...props} fallbackSrc="https://via.placeholder.com/150" />
+            h1: ({ node, ...props }) => (
+              <Heading as="h1" size="xl" {...props} />
+            ),
+            h2: ({ node, ...props }) => (
+              <Heading as="h2" size="lg" {...props} />
+            ),
+            h3: ({ node, ...props }) => (
+              <Heading as="h3" size="md" {...props} />
+            ),
+            h4: ({ node, ...props }) => (
+              <Heading as="h4" size="sm" {...props} />
+            ),
+            p: ({ node, ...props }) => (
+              <Text {...props} style={{ wordBreak: "break-word" }} />
+            ),
+            img: ({ node, ...props }) => (
+              <ChakraImage
+                boxSize="100%"
+                objectFit="cover"
+                {...props}
+                fallbackSrc="https://via.placeholder.com/150"
+              />
+            ),
           }}
         >
           {article.attributes.content}
         </ReactMarkdown>
         <Divider marginTop="5" />
         <HStack spacing={2} marginTop="5">
-          {article.attributes.tags.split(',').map((tag, index) => (
-            <Tag
-              key={index}
-              colorScheme="orange"
-              borderRadius="full"
-            >
+          {article.attributes.tags.split(",").map((tag, index) => (
+            <Tag key={index} colorScheme="orange" borderRadius="full">
               {tag.trim()}
             </Tag>
           ))}
@@ -121,12 +155,12 @@ const SinglePost = () => {
         <Gallery>
           <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-              gridGap: '12px',
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+              gridGap: "12px",
             }}
           >
-            {article.attributes.gallery && article.attributes.gallery.data.map((item, index) => {
+            {article.attributes.gallery?.data?.map((item, index) => {
               const imageUrl = `https://tadeasfort.eu/strapi${item.attributes.formats.large.url}`;
               return (
                 <Item
@@ -138,7 +172,11 @@ const SinglePost = () => {
                 >
                   {({ ref, open }) => (
                     <img
-                      style={{ cursor: 'pointer', width: '100%', height: 'auto' }}
+                      style={{
+                        cursor: "pointer",
+                        width: "100%",
+                        height: "auto",
+                      }}
                       ref={ref as React.RefObject<HTMLImageElement>}
                       onClick={open}
                       src={imageUrl}
@@ -152,7 +190,7 @@ const SinglePost = () => {
         </Gallery>
       </Box>
     </Container>
-  );  
+  );
 };
 
 export default SinglePost;
