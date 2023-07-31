@@ -52,7 +52,7 @@ fetchDynamicRoutes()
     // Generate the sitemap
     streamToPromise(stream).then((sitemap) => {
       // Write it to a file
-      createWriteStream("sitemap.xml").write(sitemap.toString());
+      createWriteStream("./public/sitemap.xml").write(sitemap.toString());
     });
   })
   .catch((error) => {
