@@ -5,7 +5,6 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import {
   Box,
@@ -22,15 +21,16 @@ import {
 import gfm from "remark-gfm";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
+import { useLocation } from "react-router-dom";
 
 interface Article {
-  slug: string;
   attributes: {
     title: string;
     content: string;
     published: string;
     tags: string;
     description: string;
+    slug: string;
     hero: {
       data: {
         attributes: {
@@ -61,20 +61,24 @@ interface Article {
 }
 
 const SinglePost = () => {
-  const { slug } = useParams<{ slug: string }>();
   const [article, setArticle] = useState<Article | null>(null);
   const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
   const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id");
+
   useEffect(() => {
-    fetch(`https://tadeasfort.eu/strapi/api/articles/${slug}?populate=*`) // replace with your Strapi URL
+    fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`)
       .then((response) => response.json())
       .then((data) => setArticle(data.data));
-  }, [slug]);
+  }, [id]);
 
   if (!article) {
     return <Box>Loading...</Box>;
   }
+
   return (
     <Container maxW="80%">
       <VStack spacing={4} align="start">

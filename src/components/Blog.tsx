@@ -17,12 +17,13 @@ import { GoChevronRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 interface Article {
-  slug: string;
+  id: number;
   attributes: {
     title: string;
     description: string;
     published: string;
     tags: string;
+    slug: string;
   };
 }
 
@@ -71,7 +72,7 @@ const Blog = () => {
       <VStack spacing={8} w={{ base: "auto", md: "2xl" }}>
         {articles.map((article) => (
           <Stack
-            key={article.slug}
+            key={article.attributes.slug}
             direction="column"
             spacing={4}
             p={4}
@@ -98,7 +99,7 @@ const Blog = () => {
             <Box textAlign="left">
               <ChakraLink
                 as={Link}
-                to={`/blog/${article.slug}`}
+                to={`/blog/${article.attributes.slug}?id=${article.id}`}
                 fontSize="xl"
                 lineHeight={1.2}
                 fontWeight="bold"
@@ -107,6 +108,7 @@ const Blog = () => {
               >
                 {article.attributes.title}
               </ChakraLink>
+
               <Text
                 fontSize="md"
                 color="gray.500"
