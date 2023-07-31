@@ -33,6 +33,7 @@ interface Gallery {
   id: number;
   attributes: {
     title: string;
+    slug: string;
     description: string;
     tags: string;
     gallery: {
@@ -101,8 +102,8 @@ const Photography = () => {
           } = gallery.attributes;
           const image = galleryData.data[0].attributes.formats.medium.url; // Use the first image from the gallery
           return (
-            <Box position="relative" key={gallery.id}>
-              <Link to={`/gallery/${gallery.id}`}>
+            <Box position="relative" key={gallery.attributes.slug}>
+              <Link to={`/gallery/${gallery.attributes.slug}`}>
                 <Box
                   borderWidth="1px"
                   shadow="md"

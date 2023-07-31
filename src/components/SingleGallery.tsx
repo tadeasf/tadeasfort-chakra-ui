@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
-import Masonry from 'react-masonry-css';
-import { Item } from 'react-photoswipe-gallery';
-import './SingleGallery.css'; // Import the CSS file
+/** @format */
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
+import Masonry from "react-masonry-css";
+import { Item } from "react-photoswipe-gallery";
+import "./SingleGallery.css"; // Import the CSS file
 
 interface ImageFormat {
   url: string;
@@ -21,6 +23,7 @@ interface Image {
 
 interface Gallery {
   attributes: {
+    slug: string;
     gallery: {
       data: Image[];
     };
@@ -33,16 +36,16 @@ const SingleGallery = () => {
 
   useEffect(() => {
     fetch(`https://tadeasfort.eu/strapi/api/galleries/${id}?populate=*`)
-      .then(response => response.json())
-      .then(data => setGallery(data.data))
-      .catch(error => console.error('Error:', error));
+      .then((response) => response.json())
+      .then((data) => setGallery(data.data))
+      .catch((error) => console.error("Error:", error));
   }, [id]);
 
   const breakpointColumnsObj = {
     default: 3,
     1100: 3,
     700: 2,
-    500: 1
+    500: 1,
   };
 
   return (
@@ -65,7 +68,7 @@ const SingleGallery = () => {
               >
                 {({ ref, open }) => (
                   <img
-                    style={{ cursor: 'pointer', width: '100%', height: 'auto' }}
+                    style={{ cursor: "pointer", width: "100%", height: "auto" }}
                     ref={ref as React.RefObject<HTMLImageElement>}
                     onClick={open}
                     src={imageUrl}
