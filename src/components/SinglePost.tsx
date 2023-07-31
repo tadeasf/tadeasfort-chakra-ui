@@ -65,7 +65,8 @@ const SinglePost = () => {
 
   useEffect(() => {
     if (slug) {
-      fetch("https://tadeasfort.eu/strapi/api/articles")
+      const id = slug.substring(slug.lastIndexOf("-") + 1);
+      fetch(`https://tadeasfort.eu/strapi/api/articles/${id}`)
         .then((response) => response.json())
         .then((data) => setArticle(data.data[0]));
     }

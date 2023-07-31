@@ -103,7 +103,7 @@ const Blog = () => {
                   .slice(0, 4)
                   .join("-")
                   .replace(/\\s+/g, "-")
-                  .toLowerCase()}`}
+                  .toLowerCase()}-${article.id}`}
                 fontSize="xl"
                 lineHeight={1.2}
                 fontWeight="bold"
