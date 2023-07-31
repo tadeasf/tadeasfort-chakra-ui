@@ -103,7 +103,7 @@ const Photography = () => {
           const image = galleryData.data[0].attributes.formats.medium.url; // Use the first image from the gallery
           return (
             <Box position="relative" key={gallery.attributes.slug}>
-              <Link to={`/gallery/${gallery.attributes.slug}`}>
+              <Link to={`/gallery/${gallery.attributes.slug}?id=${gallery.id}`}>
                 <Box
                   borderWidth="1px"
                   shadow="md"

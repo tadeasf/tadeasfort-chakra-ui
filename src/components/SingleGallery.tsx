@@ -1,11 +1,11 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Masonry from "react-masonry-css";
 import { Item } from "react-photoswipe-gallery";
 import "./SingleGallery.css"; // Import the CSS file
+import { useLocation } from "react-router-dom";
 
 interface ImageFormat {
   url: string;
@@ -31,7 +31,9 @@ interface Gallery {
 }
 
 const SingleGallery = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id");
   const [gallery, setGallery] = useState<Gallery | null>(null);
 
   useEffect(() => {
@@ -63,8 +65,8 @@ const SingleGallery = () => {
                 key={index}
                 original={imageUrl}
                 thumbnail={imageUrl}
-                width={item.attributes.formats.large.width.toString()} // Use actual width from API response
-                height={item.attributes.formats.large.height.toString()} // Use actual height from API response
+                width={item.attributes.formats.large.width} // Use actual width from API response
+                height={item.attributes.formats.large.height} // Use actual height from API response
               >
                 {({ ref, open }) => (
                   <img
