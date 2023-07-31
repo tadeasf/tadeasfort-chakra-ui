@@ -68,7 +68,7 @@ const SinglePost = () => {
       const id = slug.substring(slug.lastIndexOf("-") + 1);
       fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`)
         .then((response) => response.json())
-        .then((data) => setArticle(data.data[0]));
+        .then((data) => setArticle(data));
     }
   }, [slug]);
 
