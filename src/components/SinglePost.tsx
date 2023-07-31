@@ -61,8 +61,10 @@ interface Article {
 }
 
 const SinglePost = () => {
-  const { slug } = useParams<{ slug?: string }>();
+  const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<Article | null>(null);
+  const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
+  const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
 
   useEffect(() => {
     fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`) // replace with your Strapi URL
@@ -73,10 +75,6 @@ const SinglePost = () => {
   if (!article) {
     return <Box>Loading...</Box>;
   }
-
-  const boxBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.200");
-  const boxShadowColor = useColorModeValue("gray.500", "whiteAlpha.200");
-
   return (
     <Container maxW="80%">
       <VStack spacing={4} align="start">
