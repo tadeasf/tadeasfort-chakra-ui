@@ -89,9 +89,17 @@ const SinglePost = () => {
             src={`https://tadeasfort.eu/strapi${article.attributes.hero.data.attributes.formats.large.url}`}
             alt={article.attributes.title}
             fallbackSrc="https://via.placeholder.com/150"
+            aspectRatio={16 / 9} // for a 16:9 aspect ratio
           />
-          <Box position="absolute" bottom="0" left="0" bg={boxBg} p="4">
-            <Heading as="h1" size="2xl">
+
+          <Box
+            position="absolute"
+            bottom="0"
+            left="0"
+            bg={boxBg}
+            p={{ base: "2", md: "4" }}
+          >
+            <Heading as="h1" fontSize={{ base: "1.25rem", md: "2xl" }}>
               {article.attributes.title}
             </Heading>
           </Box>
