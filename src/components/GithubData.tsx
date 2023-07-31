@@ -14,9 +14,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { format, parseISO } from "date-fns";
-import { Heading, Box, useColorMode } from "@chakra-ui/react"; // Import Chakra UI components and CSSReset
-
-import DataTable from "react-data-table-component";
+import {
+  Heading,
+  Box,
+  useColorMode,
+  Stat,
+  StatLabel,
+  StatNumber,
+  Flex,
+} from "@chakra-ui/react";
 
 type Repo = {
   name: string;
@@ -34,51 +40,9 @@ type Repo = {
   }>;
 };
 
-type Column = {
-  name: string;
-  selector: (row: TableData) => string | number;
-};
-
-type TableData = {
-  name: string;
-  dateUpdated: string;
-  numberOfCommits: number;
-  numberOfDocuments: number;
-  totalLinesOfCode: number;
-  totalLinesAdded: number;
-  totalLinesDeleted: number;
-};
-
-const columns: Column[] = [
-  {
-    name: "Repository",
-    selector: (row: TableData) => row.name,
-  },
-  {
-    name: "Last Updated",
-    selector: (row: TableData) => row.dateUpdated,
-  },
-  {
-    name: "Number of Commits",
-    selector: (row: TableData) => row.numberOfCommits.toString(),
-  },
-  {
-    name: "Total Lines of Code",
-    selector: (row: TableData) => row.totalLinesOfCode.toString(),
-  },
-  {
-    name: "Total Lines Added",
-    selector: (row: TableData) => row.totalLinesAdded.toString(),
-  },
-  {
-    name: "Total Lines Deleted",
-    selector: (row: TableData) => row.totalLinesDeleted.toString(),
-  },
-];
-
 const GithubData = () => {
   const [data, setData] = useState<Repo[] | null>(null);
-  const { colorMode } = useColorMode(); // Get the current color mode (light/dark)
+  const { colorMode } = useColorMode();
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -111,7 +75,7 @@ const GithubData = () => {
           boxShadow="md"
         >
           <p>{data.name}</p>
-          <p>Value: {data.totalLinesOfCode}</p>
+          <p>Total lines: {data.totalLinesOfCode}</p>
         </Box>
       );
     }
@@ -130,7 +94,7 @@ const GithubData = () => {
           boxShadow="md"
         >
           <p>{data.name}</p>
-          <p>Value: {data.numberOfCommits}</p>
+          <p>Total commits: {data.numberOfCommits}</p>
         </Box>
       );
     }
@@ -152,6 +116,8 @@ const GithubData = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
+
+  const repo = data.find((repo) => repo.name === "tadeasfort-chakra-ui");
 
   const lineChartData = data[0].commits.map((commit) => ({
     date: format(parseISO(commit.date), "yyyy-MM-dd"),
@@ -178,29 +144,38 @@ const GithubData = () => {
     .sort((a, b) => b.numberOfCommits - a.numberOfCommits)
     .slice(0, 10); // Take top 10
 
-  const tableData: TableData[] = data
-    ? data.map((repo) => ({
-        name: repo.name,
-        dateUpdated: format(parseISO(repo.dateUpdated), "yyyy-MM-dd"),
-        numberOfCommits: repo.numberOfCommits,
-        numberOfDocuments: repo.numberOfDocuments,
-        totalLinesOfCode: repo.totalLinesOfCode,
-        totalLinesAdded: repo.totalLinesAdded,
-        totalLinesDeleted: repo.totalLinesDeleted,
-      }))
-    : [];
-
   return (
     <Box
       bg={colorMode === "light" ? "white" : "gray.800"}
       color={colorMode === "light" ? "black" : "white"}
     >
-      {/* Use Chakra UI's colorMode to set the background and text color based on the current color mode */}
       <Heading as="h1" size="xl" textAlign="center" my={5}>
         GitHub Data
       </Heading>
+      {repo && (
+        <Flex justify="center" align="center" wrap="wrap" my={5}>
+          <Stat mx={2}>
+            <StatLabel>Repository Name</StatLabel>
+            <StatNumber>{repo.name}</StatNumber>
+          </Stat>
+          <Stat mx={2}>
+            <StatLabel>Total Lines Added</StatLabel>
+            <StatNumber color="green.500">{repo.totalLinesAdded}</StatNumber>
+          </Stat>
+          <Stat mx={2}>
+            <StatLabel>Total Lines Deleted</StatLabel>
+            <StatNumber color="red.500">{repo.totalLinesDeleted}</StatNumber>
+          </Stat>
+          <Stat mx={2}>
+            <StatLabel>Last Commit Date</StatLabel>
+            <StatNumber>
+              {format(parseISO(repo.dateUpdated), "yyyy-MM-dd")}
+            </StatNumber>
+          </Stat>
+        </Flex>
+      )}
       <Heading as="h1" size="l" textAlign="center" my={5}>
-        Lines Added/Deleted
+        Lines Added/Deleted for all repositories
       </Heading>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={lineChartData}>
@@ -239,12 +214,6 @@ const GithubData = () => {
           <Bar dataKey="numberOfCommits" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
-      <DataTable
-        title="Repository Data"
-        columns={columns}
-        data={tableData}
-        theme={colorMode === "light" ? "default" : "dark"}
-      />
     </Box>
   );
 };
