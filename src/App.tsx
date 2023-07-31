@@ -19,18 +19,21 @@ import Stats from "./components/stats";
 import TechStack from "./components/techStack";
 import Photography from "./components/Photography";
 import SingleGallery from "./components/SingleGallery";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
 // Initialize Google Analytics
-ReactGA.initialize("G-9GE564L7WG");
+ReactGA.initialize([
+  {
+    trackingId: "G-9GE564L7WG",
+  },
+]);
 
 const MainRoutes = () => {
   const location = useLocation();
 
   React.useEffect(() => {
     // Update Google Analytics with page view each time the route changes
-    ReactGA.set({ page: location.pathname });
-    ReactGA.pageview(location.pathname);
+    ReactGA.send({ hitType: "pageview", page: location.pathname });
   }, [location]);
 
   return (

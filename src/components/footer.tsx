@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
 import { ReactNode } from "react";
-import ReactGA from "react-ga";
 
 const SocialButton = ({
   children,
@@ -39,13 +38,6 @@ const SocialButton = ({
       transition={"background 0.3s ease"}
       _hover={{
         bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
-      }}
-      onClick={() => {
-        ReactGA.event({
-          category: "Social",
-          action: "Click",
-          label: label,
-        });
       }}
     >
       <VisuallyHidden>{label}</VisuallyHidden>
