@@ -100,7 +100,7 @@ interface CardProps {
 const Card = ({ id, title, description, date }: CardProps) => {
   // For even id show card on left side
   // For odd id show card on right side
-  const isEvenId = id % 2 == 0;
+  const isEvenId = id % 2 === 0;
   let borderWidthValue = isEvenId ? '15px 15px 15px 0' : '15px 0 15px 15px';
   let leftValue = isEvenId ? '-15px' : 'unset';
   let rightValue = isEvenId ? 'unset' : '-15px';
