@@ -1,4 +1,6 @@
-import React from 'react';
+/** @format */
+
+import React from "react";
 import {
   Box,
   chakra,
@@ -8,43 +10,40 @@ import {
   VStack,
   Flex,
   useColorModeValue,
-  useBreakpointValue
-} from '@chakra-ui/react';
+  useBreakpointValue,
+} from "@chakra-ui/react";
 
 const milestones = [
   {
     id: 1,
-    date: 'October 30, 2022',
-    title: 'First comercial React Web App',
-    description: `I've designed my first comercial React Web App for a client - Dorian Film.`
+    date: "October 30, 2022",
+    title: "First Commercial React Web App",
+    description: `I've designed my first commercial React Web App for a client - Dorian Film.`,
   },
   {
     id: 2,
-    date: 'February 22, 2021',
-    title: 'Stared working for a startup',
-    description: `I've started working for a startup called Daytrip, where he is responsible for designing ETL pipelines and data dashboards for internal as well as external needs of the company.`
+    date: "February 22, 2021",
+    title: "Stared working for a startup",
+    description: `I've started working for a startup called Daytrip, where he is responsible for designing ETL pipelines and data dashboards for internal as well as external needs of the company.`,
   },
   {
     id: 3,
-    date: 'Aug 20, 2020',
-    title: 'Freelancing, started working for myself',
-    description:
-    `I've starts his own business, first area of expertise being designig optical networks.`
+    date: "Aug 20, 2020",
+    title: "Freelancing, started working for myself",
+    description: `I've starts his own business, first area of expertise being designig optical networks.`,
   },
   {
     id: 4,
-    date: '2020',
-    title: 'Started working on Masters Degree',
-    description:
-    `I've started my Masters Degree in New Media at Charles University.`
+    date: "2020",
+    title: "Started working on Masters Degree",
+    description: `I've started my Masters Degree in New Media at Charles University.`,
   },
   {
     id: 5,
-    date: '2018',
-    title: 'Started a photography business',
-    description:
-    `I've worked with headhunters, providing corporate headshots for their clients.`
-  }
+    date: "2018",
+    title: "Started a photography business",
+    description: `I've worked with headhunters, providing corporate headshots for their clients.`,
+  },
 ];
 
 const Milestones = () => {
@@ -101,41 +100,44 @@ const Card = ({ id, title, description, date }: CardProps) => {
   // For even id show card on left side
   // For odd id show card on right side
   const isEvenId = id % 2 === 0;
-  let borderWidthValue = isEvenId ? '15px 15px 15px 0' : '15px 0 15px 15px';
-  let leftValue = isEvenId ? '-15px' : 'unset';
-  let rightValue = isEvenId ? 'unset' : '-15px';
+  let borderWidthValue = isEvenId ? "15px 15px 15px 0" : "15px 0 15px 15px";
+  let leftValue = isEvenId ? "-15px" : "unset";
+  let rightValue = isEvenId ? "unset" : "-15px";
 
   const isMobile = useBreakpointValue({ base: true, md: false });
   if (isMobile) {
-    leftValue = '-15px';
-    rightValue = 'unset';
-    borderWidthValue = '15px 15px 15px 0';
+    leftValue = "-15px";
+    rightValue = "unset";
+    borderWidthValue = "15px 15px 15px 0";
   }
 
   return (
     <HStack
       flex={1}
       p={{ base: 3, sm: 6 }}
-      bg={useColorModeValue('gray.100', 'gray.800')}
+      bg={useColorModeValue("gray.100", "gray.800")}
       spacing={5}
       rounded="lg"
       alignItems="center"
       pos="relative"
       _before={{
         content: `""`,
-        w: '0',
-        h: '0',
-        borderColor: `transparent ${useColorModeValue('#edf2f6', '#1a202c')} transparent`,
-        borderStyle: 'solid',
+        w: "0",
+        h: "0",
+        borderColor: `transparent ${useColorModeValue(
+          "#edf2f6",
+          "#1a202c"
+        )} transparent`,
+        borderStyle: "solid",
         borderWidth: borderWidthValue,
-        position: 'absolute',
+        position: "absolute",
         left: leftValue,
         right: rightValue,
-        display: 'block'
+        display: "block",
       }}
     >
       <Box>
-        <Text fontSize="lg" color={isEvenId ? 'teal.400' : 'blue.400'}>
+        <Text fontSize="lg" color={isEvenId ? "teal.400" : "blue.400"}>
           {date}
         </Text>
 
@@ -155,15 +157,15 @@ const LineWithDot = () => {
     <Flex
       pos="relative"
       alignItems="center"
-      mr={{ base: '40px', md: '40px' }}
-      ml={{ base: '0', md: '40px' }}
+      mr={{ base: "40px", md: "40px" }}
+      ml={{ base: "0", md: "40px" }}
     >
       <chakra.span
         position="absolute"
         left="50%"
         height="calc(100% + 10px)"
         border="1px solid"
-        borderColor={useColorModeValue('gray.200', 'gray.700')}
+        borderColor={useColorModeValue("gray.200", "gray.700")}
         top="0px"
       ></chakra.span>
       <Box pos="relative" p="10px">
@@ -178,7 +180,7 @@ const LineWithDot = () => {
           backgroundSize="cover"
           backgroundRepeat="no-repeat"
           backgroundPosition="center center"
-          bg={useColorModeValue('gray.600', 'gray.200')}
+          bg={useColorModeValue("gray.600", "gray.200")}
           borderRadius="100px"
           backgroundImage="none"
           opacity={1}
@@ -189,7 +191,13 @@ const LineWithDot = () => {
 };
 
 const EmptyCard = () => {
-  return <Box flex={{ base: 0, md: 1 }} p={{ base: 0, md: 6 }} bg="transparent"></Box>;
+  return (
+    <Box
+      flex={{ base: 0, md: 1 }}
+      p={{ base: 0, md: 6 }}
+      bg="transparent"
+    ></Box>
+  );
 };
 
 export default Milestones;
