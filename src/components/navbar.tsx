@@ -71,6 +71,15 @@ const dropdownLinks = [
   },
 ];
 
+const dataDropdownLinks = [
+  {
+    name: "GitHub Data",
+    path: "/data",
+    icon: MdTimeline,
+  },
+  // Add more items here as needed
+];
+
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -111,6 +120,54 @@ export default function Navbar() {
             {navLinks.map((link, index) => (
               <NavLink key={index} {...link} onClose={onClose} />
             ))}
+            <Menu autoSelect={false} isLazy>
+              {({ isOpen, onClose }) => (
+                <>
+                  <MenuButton
+                    as={Button}
+                    variant="ghost"
+                    size="sm"
+                    px={3}
+                    py={1}
+                    lineHeight="inherit"
+                    fontSize="1em"
+                    fontWeight="normal"
+                    rounded="md"
+                    height="auto"
+                    _hover={{ color: "blue.400", bg: menuProps.bg }}
+                  >
+                    <Flex alignItems="center">
+                      <Text>Data</Text>
+                      <Icon
+                        as={BiChevronDown}
+                        h={5}
+                        w={5}
+                        ml={1}
+                        transition="all .25s ease-in-out"
+                        transform={isOpen ? "rotate(180deg)" : ""}
+                      />
+                    </Flex>
+                  </MenuButton>
+                  <MenuList
+                    zIndex={5}
+                    bg={menuListBg}
+                    border="none"
+                    boxShadow={boxShadowColor}
+                  >
+                    {dataDropdownLinks.map((link, index) => (
+                      <MenuLink
+                        key={index}
+                        name={link.name}
+                        path={link.path}
+                        icon={link.icon}
+                        onClose={onClose}
+                      />
+                    ))}
+                  </MenuList>
+                </>
+              )}
+            </Menu>
+
             {/* Dropdown Menu */}
             <Menu autoSelect={false} isLazy>
               {({ isOpen, onClose }) => (
@@ -220,8 +277,10 @@ interface MenuLinkProps {
 }
 
 const MenuLink = ({ name, path, icon, onClose }: MenuLinkProps) => {
+  const isInternal = path.startsWith("/"); // Check if the link is internal
+
   return (
-    <Link href={path} isExternal onClick={() => onClose()}>
+    <Link href={path} isExternal={!isInternal} onClick={() => onClose()}>
       <MenuItem
         _hover={{
           color: "blue.400",
