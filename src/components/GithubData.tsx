@@ -62,10 +62,6 @@ const columns: Column[] = [
     selector: (row: TableData) => row.numberOfCommits.toString(),
   },
   {
-    name: "Number of Documents",
-    selector: (row: TableData) => row.numberOfDocuments.toString(),
-  },
-  {
     name: "Total Lines of Code",
     selector: (row: TableData) => row.totalLinesOfCode.toString(),
   },
