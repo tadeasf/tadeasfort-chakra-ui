@@ -43,7 +43,9 @@ type Repo = {
 };
 
 const GithubData = () => {
-  const [data, setData] = useState<Repo[] | null>(null);
+  const [data, setData] = useState<Repo[] | null>(
+    typeof window !== "undefined" ? (window as any).__GITHUB_DATA__ : null
+  );
   const { colorMode } = useColorMode();
 
   const CustomTooltip = ({ active, payload }: any) => {
