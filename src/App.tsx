@@ -42,11 +42,11 @@ const MainRoutes = () => {
   return (
     <Routes>
       <Route path="/contact" element={<Contact />} />
-      <Route path="/blog" element={<Suspense fallback={<div>Loading...</div>}><Blog /></Suspense>} />
-      <Route path="/blog/:slug" element={<Suspense fallback={<div>Loading...</div>}><SinglePost /></Suspense>} />
-      <Route path="/photography" element={<Suspense fallback={<div>Loading...</div>}><Photography /></Suspense>} />
-      <Route path="/gallery/:slug" element={<Suspense fallback={<div>Loading...</div>}><SingleGallery /></Suspense>} />
-      <Route path="/data" element={<Suspense fallback={<div>Loading...</div>}><GithubData /></Suspense>} />
+      <Route path="/blog" element={<Suspense fallback={<div></div>}><Blog /></Suspense>} />
+      <Route path="/blog/:slug" element={<Suspense fallback={<div></div>}><SinglePost /></Suspense>} />
+      <Route path="/photography" element={<Suspense fallback={<div></div>}><Photography /></Suspense>} />
+      <Route path="/gallery/:slug" element={<Suspense fallback={<div></div>}><SingleGallery /></Suspense>} />
+      <Route path="/data" element={<Suspense fallback={<div></div>}><GithubData /></Suspense>} />
       <Route
         path="/"
         element={
