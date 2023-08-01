@@ -16,6 +16,7 @@
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
     "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
     "framer-motion": "^10.15.0",
     "mongodb": "^5.7.0",
     "netlify-identity-widget": "^1.9.2",
@@ -29,6 +30,7 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
+    "react-snap": "^1.23.0",
     "recharts": "^2.7.2",
     "remark-gfm": "^3.0.1",
     "sitemap": "^7.1.1",
@@ -39,7 +41,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build && node sitemap.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,6 +63,8 @@
     "@types/netlify-identity-widget": "^1.9.3",
     "@types/react-icons": "^3.0.0",
     "@types/react-slick": "^0.23.10",
-    "eslint": "^8.46.0"
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-prettier": "^5.0.0"
   }
 }
