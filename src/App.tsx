@@ -66,7 +66,7 @@ export function App() {
   return (
     <ChakraProvider theme={theme}>
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div></div>}>
           <Navbar />
           <MainRoutes />
           <Footer />

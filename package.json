@@ -7,7 +7,6 @@
     "@chakra-ui/icons": "^2.1.0",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
     "@sendgrid/mail": "^7.7.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
@@ -31,19 +30,17 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
-    "react-snap": "^1.23.0",
     "recharts": "^2.7.2",
     "remark-gfm": "^3.0.1",
     "sitemap": "^7.1.1",
-    "typescript": "^4.9.5",
+    "typescript": "^5.1.6",
     "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && node sitemap.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postbuild": "react-snap"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
