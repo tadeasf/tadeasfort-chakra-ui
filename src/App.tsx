@@ -63,12 +63,14 @@ const MainRoutes = () => {
   );
 };
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Router>
-      <Navbar />
-      <MainRoutes />
-      <Footer />
-    </Router>
-  </ChakraProvider>
-);
+export function App() {
+  return (
+    <ChakraProvider theme={theme}>
+      <Router>
+        <Navbar />
+        <MainRoutes />
+        <Footer />
+      </Router>
+    </ChakraProvider>
+  );
+}
