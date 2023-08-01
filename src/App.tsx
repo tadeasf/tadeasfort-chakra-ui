@@ -1,26 +1,11 @@
 /** @format */
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import * as React from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
-import Hero from "./components/hero";
 import Navbar from "./components/navbar";
-import Footer from "./components/footer";
-import Milestones from "./components/timeline";
-import Contact from "./components/contact";
-import Blog from "./components/Blog";
-import SinglePost from "./components/SinglePost";
-import Stats from "./components/stats";
-import TechStack from "./components/techStack";
-import Photography from "./components/Photography";
-import SingleGallery from "./components/SingleGallery";
 import ReactGA from "react-ga4";
-import GithubData from "./components/GithubData";
+import SmallWithSocial from "./components/footer";
 
 // Initialize Google Analytics
 ReactGA.initialize([
@@ -29,43 +14,75 @@ ReactGA.initialize([
   },
 ]);
 
-const MainRoutes = () => {
-  const location = useLocation();
+const Footer = React.lazy(() => import("./components/footer"));
 
-  React.useEffect(() => {
-    // Update Google Analytics with page view each time the route changes
-    ReactGA.send({ hitType: "pageview", page: location.pathname });
-  }, [location]);
-
-  return (
-    <Routes>
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/blog/:slug" element={<SinglePost />} />
-      <Route path="/photography" element={<Photography />} />
-      <Route path="/gallery/:slug" element={<SingleGallery />} />
-      <Route path="/data" element={<GithubData />} />
-      <Route
-        path="/"
-        element={
-          <>
-            <Hero />
-            <TechStack />
-            <Stats />
-            <Milestones />
-          </>
-        }
-      />
-    </Routes>
-  );
-};
+const MainRoutes = React.lazy(() => import("./MainRoutes")); // Import the modified MainRoutes component
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Router>
       <Navbar />
-      <MainRoutes />
-      <Footer />
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <MainRoutes /> {/* Render the MainRoutes component */}
+              </>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MainRoutes />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/blog"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MainRoutes />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/blog/:slug"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MainRoutes />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/photography"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MainRoutes />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/gallery/:slug"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MainRoutes />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/data"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MainRoutes />
+              </React.Suspense>
+            }
+          />
+        </Routes>
+      </React.Suspense>
+      <SmallWithSocial />
     </Router>
   </ChakraProvider>
 );
