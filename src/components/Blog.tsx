@@ -61,7 +61,7 @@ const Blog = () => {
   const hoverColor = useColorModeValue("gray.200", "gray.700");
 
   useEffect(() => {
-    fetch("https://tadeasfort.eu/strapi/api/articles")
+    fetch("https://strapi.tadeasfort.eu/api/articles")
       .then((response) => response.json())
       .then((data) => {
         // Sort the articles based on their published date in descending order

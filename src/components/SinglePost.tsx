@@ -70,7 +70,7 @@ const SinglePost = () => {
   const id = searchParams.get("id");
 
   useEffect(() => {
-    fetch(`https://tadeasfort.eu/strapi/api/articles/${id}?populate=*`)
+    fetch(`https://strapi.tadeasfort.eu/api/articles/${id}?populate=*`)
       .then((response) => response.json())
       .then((data) => setArticle(data.data));
   }, [id]);
@@ -86,7 +86,7 @@ const SinglePost = () => {
           <ChakraImage
             boxSize="100%"
             objectFit="cover"
-            src={`https://tadeasfort.eu/strapi${article.attributes.hero.data.attributes.formats.large.url}`}
+            src={`https://strapi.tadeasfort.eu/${article.attributes.hero.data.attributes.formats.large.url}`}
             alt={article.attributes.title}
             fallbackSrc="https://via.placeholder.com/150"
             aspectRatio={16 / 9} // for a 16:9 aspect ratio
@@ -162,7 +162,7 @@ const SinglePost = () => {
             }}
           >
             {article.attributes.gallery?.data?.map((item, index) => {
-              const imageUrl = `https://tadeasfort.eu/strapi${item.attributes.formats.large.url}`;
+              const imageUrl = `https://strapi.tadeasfort.eu/${item.attributes.formats.large.url}`;
               return (
                 <Item
                   key={index}
