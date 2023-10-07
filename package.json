@@ -21,6 +21,7 @@
     "react-photoswipe-gallery": "^2.2.7",
     "react-router-dom": "^6.14.2",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.8",
     "recharts": "^2.7.2",
     "remark-gfm": "^3.0.1",
     "sitemap": "^7.1.1",

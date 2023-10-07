@@ -36,6 +36,7 @@ const navLinks = [
   { name: "Contact", path: "/contact" },
   { name: "Blog", path: "/blog" },
   { name: "Photography", path: "/photography" },
+  { name: "Pipeline Tester", path: "/pipelinetester" },
 ];
 
 const dropdownLinks = [
@@ -227,6 +228,22 @@ export default function Navbar() {
           <Stack as="nav" spacing={2}>
             {navLinks.map((link, index) => (
               <NavLink key={index} {...link} onClose={onClose} />
+            ))}
+          </Stack>
+        </Box>
+      ) : null}
+      {/* data dropdown */}
+      {isOpen ? (
+        <Box pb={4} display={["inherit", "inherit", "none"]}>
+          <Stack as="nav" spacing={2}>
+            {dataDropdownLinks.map((link, index) => (
+              <MenuLink
+                key={index}
+                name={link.name}
+                path={link.path}
+                icon={link.icon}
+                onClose={onClose}
+              />
             ))}
           </Stack>
         </Box>
