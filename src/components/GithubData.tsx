@@ -108,7 +108,7 @@ const GithubData = () => {
 
   useEffect(() => {
     axios
-      .get("https://db.tadeasfort.com/github-data")
+      .get("https://database.tadeasfort.com/github-data")
       .then((response) => {
         setData(response.data);
       })

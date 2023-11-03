@@ -61,7 +61,7 @@ const Blog = () => {
   const hoverColor = useColorModeValue("gray.200", "gray.700");
 
   useEffect(() => {
-    fetch("https://db.tadeasfort.com/api/articles")
+    fetch("https://database.tadeasfort.com/api/articles")
       .then((response) => response.json())
       .then((data) => {
         // Sort the articles based on their published date in descending order

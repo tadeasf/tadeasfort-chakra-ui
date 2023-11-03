@@ -42,7 +42,7 @@ interface Gallery {
   };
 }
 
-const baseURL = "https://db.tadeasfort.com";
+const baseURL = "https://database.tadeasfort.com";
 
 // Define a list of colors
 const colors = [

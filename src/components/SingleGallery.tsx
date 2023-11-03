@@ -37,7 +37,7 @@ const SingleGallery = () => {
   const [gallery, setGallery] = useState<Gallery | null>(null);
 
   useEffect(() => {
-    fetch(`https://db.tadeasfort.com/api/galleries/${id}?populate=*`)
+    fetch(`https://database.tadeasfort.com/api/galleries/${id}?populate=*`)
       .then((response) => response.json())
       .then((data) => setGallery(data.data))
       .catch((error) => console.error("Error:", error));
@@ -59,7 +59,7 @@ const SingleGallery = () => {
           columnClassName="my-masonry-grid_column"
         >
           {gallery.attributes.gallery.data.map((item, index) => {
-            const imageUrl = `https://db.tadeasfort.com/${item.attributes.formats.large.url}`;
+            const imageUrl = `https://database.tadeasfort.com/${item.attributes.formats.large.url}`;
             return (
               <Item
                 key={index}
