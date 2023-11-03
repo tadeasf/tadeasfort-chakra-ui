@@ -42,7 +42,7 @@ interface Gallery {
   };
 }
 
-const baseURL = "https://strapi.tadeasfort.eu";
+const baseURL = "https://db.tadeasfort.com";
 
 // Define a list of colors
 const colors = [

@@ -14,9 +14,9 @@ const routes = [
 
 // Fetch dynamic routes from Strapi
 const fetchDynamicRoutes = async () => {
-  const articles = await axios.get("https://strapi.tadeasfort.eu/api/articles");
+  const articles = await axios.get("https://db.tadeasfort.com/api/articles");
   const galleries = await axios.get(
-    "https://strapi.tadeasfort.eu/api/galleries"
+    "https://db.tadeasfort.com/api/galleries"
   );
 
   articles.data.data.forEach((article) => {
