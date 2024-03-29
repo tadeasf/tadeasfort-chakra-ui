@@ -22,6 +22,7 @@ import SingleGallery from "./components/SingleGallery";
 import ReactGA from "react-ga4";
 import GithubData from "./components/GithubData";
 import PipelineTester from "./components/PipelineTester";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 // Initialize Google Analytics
 ReactGA.initialize([
@@ -47,6 +48,7 @@ const MainRoutes = () => {
       <Route path="/gallery/:slug" element={<SingleGallery />} />
       <Route path="/data" element={<GithubData />} />
       <Route path="/pipelinetester" element={<PipelineTester />} />
+      <Route path="/privacy_policy" element={<PrivacyPolicy/>} />
       <Route
         path="/"
         element={
